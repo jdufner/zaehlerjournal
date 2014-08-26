@@ -3,13 +3,13 @@
 /* jasmine specs for controllers go here */
 
 describe('controllers', function(){
-  beforeEach(module('myApp.controllers'));
+  beforeEach(module('zaehlerjournal.controllers'));
 
 
-  it('should ....', inject(function($controller) {
+  it('should exists', inject(function($controller) {
     //spec body
-    var myCtrl1 = $controller('MyCtrl1', { $scope: {} });
-    expect(myCtrl1).toBeDefined();
+    var uebersichtCtrl = $controller('UebersichtCtrl', { $scope: {} });
+    expect(uebersichtCtrl).toBeDefined();
   }));
 
   it('should ....', inject(function($controller) {

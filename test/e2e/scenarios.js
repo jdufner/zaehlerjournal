@@ -2,25 +2,25 @@
 
 /* https://github.com/angular/protractor/blob/master/docs/getting-started.md */
 
-describe('my app', function() {
+describe('Zählerjournal', function() {
 
   browser.get('index.html');
 
-  it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
-    expect(browser.getLocationAbsUrl()).toMatch("/view1");
+  it('should automatically redirect to /uebersichtt when location hash/fragment is empty', function() {
+    expect(browser.getLocationAbsUrl()).toMatch("/uebersicht");
   });
 
 
-  describe('view1', function() {
+  describe('uebersicht', function() {
 
     beforeEach(function() {
-      browser.get('index.html#/view1');
+      browser.get('index.html#/uebersicht');
     });
 
 
-    it('should render view1 when user navigates to /view1', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 1/);
+    it('should render uebersicht when user navigates to /uebersicht', function() {
+      expect(element.all(by.css('[ng-view] h1')).first().getText()).
+        toMatch(/bersicht/);
     });
 
   });

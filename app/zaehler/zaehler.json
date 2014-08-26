@@ -1,0 +1,20 @@
+[
+    {
+        "nr": "123",
+        "art": "gas",
+        "typ": "Hauptzähler",
+        "adresse": "Zuhause"
+    },
+    {
+        "nr": "456",
+        "art": "wasser",
+        "typ": "Hauptzähler",
+        "adresse": "Zuhause"
+    },
+    {
+        "nr": "789",
+        "art": "strom",
+        "typ": "Hauptzähler",
+        "adresse": "Zuhause"
+    }
+]
