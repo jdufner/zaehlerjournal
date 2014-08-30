@@ -2,9 +2,19 @@
   <div class="row">
     <div class="col-md-2">
       <h1>{{name}}</h1>
-      <ul class="zaehler">
-        <li ng-repeat="zaehler in zaehlers">{{zaehler.nr}}</li>
+
+      <ul class="adresse">
+        <li ng-repeat="adresse in adressen">
+          {{adresse.adresse}}
+          <ul class="zaehler">
+            <li ng-repeat="zaehler in adresse.zaehlers">{{zaehler.art}}
+              <p>{{zaehler.nr}} ({{zaehler.typ}})</p>
+            </li>
+          </ul>
+        </li>
       </ul>
+
+      <p>Version: {{version}}</p>
     </div>
   </div>
 </div>

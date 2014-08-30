@@ -1,20 +1,23 @@
 [
     {
-        "nr": "123",
-        "art": "gas",
-        "typ": "Hauptzähler",
-        "adresse": "Zuhause"
-    },
-    {
-        "nr": "456",
-        "art": "wasser",
-        "typ": "Hauptzähler",
-        "adresse": "Zuhause"
-    },
-    {
-        "nr": "789",
-        "art": "strom",
-        "typ": "Hauptzähler",
-        "adresse": "Zuhause"
+        "adresse": "An der Tuchbleiche 6, Biebesheim",
+        "zaehlers":
+        [
+            {
+                "nr": "19080458",
+                "art": "Gas",
+                "typ": "Hauptzähler"
+            },
+            {
+                "nr": "04AB019104",
+                "art": "Wasser",
+                "typ": "Hauptzähler"
+            },
+            {
+                "nr": "3650005100260",
+                "art": "Strom",
+                "typ": "Hauptzähler"
+            }
+        ]
     }
 ]

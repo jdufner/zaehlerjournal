@@ -1,0 +1,26 @@
+{
+    "arten":
+    [
+        {
+            "art": "Gas",
+            "einheit": "m³"
+        },
+        {
+            "art": "Strom",
+            "einheit": "kWh"
+        },
+        {
+            "art": "Wasser",
+            "einheit": "m³"
+        }
+    ],
+    "typen":
+    [
+        {
+            "typ": "Hauptzähler"
+        },
+        {
+            "typ". "Nebenzähler"
+        }
+    ]
+}

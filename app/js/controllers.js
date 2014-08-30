@@ -2,23 +2,13 @@
 
 /* Controllers */
 
-angular.module('zaehlerjournal.controllers', [])
-  .controller('UebersichtCtrl', ['$scope', function($scope) {
+angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
+  .controller('UebersichtCtrl', ['$scope', 'Zaehlerjournal', function($scope, Zaehlerjournal) {
     $scope.name = 'Übersicht';
-    $scope.zaehlers = [
-      {
-        "nr": "1",
-        "art": "Gas"
-      },
-      {
-        "nr": "2",
-        "art": "Wasser"
-      },
-      {
-        "nr": "3",
-        "art": "Strom"
-      }
-    ];
+
+    $scope.adressen = Zaehlerjournal.query();
+
+    $scope.version = '0.1';
   }])
   .controller('MyCtrl2', ['$scope', function($scope) {
 
