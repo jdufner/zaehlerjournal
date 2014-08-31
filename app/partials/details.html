@@ -1,0 +1,8 @@
+<h1>{{zaehlerNr}}</h1>
+<ul ng-repeat="stand in staende">
+  <li>{{stand.datum}}: {{stand.stand}}</li>
+</ul>
+<p>
+  Showing of 'interpolate' filter:
+  {{ 'Current version is v%VERSION%.' | interpolate }}
+</p>

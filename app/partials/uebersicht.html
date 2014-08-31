@@ -8,7 +8,7 @@
           {{adresse.adresse}}
           <ul class="zaehler">
             <li ng-repeat="zaehler in adresse.zaehlers">{{zaehler.art}}
-              <p>{{zaehler.nr}} ({{zaehler.typ}})</p>
+              <p><a href="#/zaehler/{{zaehler.nr}}">{{zaehler.nr}} ({{zaehler.typ}})</a></p>
             </li>
           </ul>
         </li>

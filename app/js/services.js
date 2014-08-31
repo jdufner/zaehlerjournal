@@ -13,7 +13,25 @@ zaehlerjournalServices.value('version', '0.1');
 zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
   function($resource) {
     return $resource('zaehler/zaehler.json', {}, {
-      query: {method: 'GET', params: {}, isArray: true}
+      query: {
+        method: 'GET',
+        params: {},
+        isArray: true
+      }
+    });
+  }
+]);
+
+zaehlerjournalServices.factory('Zaehlerdetails', ['$resource',
+  function($resource) {
+    return $resource('zaehler/:zaehlerNr.json', {}, {
+      query: {
+        method: 'GET',
+        params: {
+          zaehlerNr: 'zaehler'
+        },
+        isArray: true
+      }
     });
   }
 ]);

@@ -11,6 +11,6 @@ angular.module('zaehlerjournal', [
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/uebersicht', {templateUrl: 'partials/uebersicht.html', controller: 'UebersichtCtrl'});
-  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
+  $routeProvider.when('/zaehler/:zaehlerNr', {templateUrl: 'partials/details.html', controller: 'DetailsCtrl'});
   $routeProvider.otherwise({redirectTo: '/uebersicht'});
 }]);
