@@ -13,6 +13,12 @@ describe('controllers', function(){
   beforeEach(module('zaehlerjournal.controllers'));
   beforeEach(module('zaehlerjournal.services'));
 
+  it('should exists', inject(function($controller) {
+    //spec body
+    var uebersichtCtrl = $controller('UebersichtCtrl', { $scope: {} });
+    expect(uebersichtCtrl).toBeDefined();
+  }));
+
   describe('UebersichtCtrl', function() {
     var scope, ctrl, $httpBackend;
 
@@ -34,8 +40,8 @@ describe('controllers', function(){
 
   it('should exists', inject(function($controller) {
     //spec body
-    var uebersichtCtrl = $controller('UebersichtCtrl', { $scope: {} });
-    expect(uebersichtCtrl).toBeDefined();
+    var detailsCtrl = $controller('DetailsCtrl', { $scope: {}, $routeParams: {}});
+    expect(detailsCtrl).toBeDefined();
   }));
 
   describe('DetailsCtrl', function() {
