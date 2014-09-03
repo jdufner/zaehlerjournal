@@ -6,17 +6,20 @@
             {
                 "nr": "19080458",
                 "art": "Gas",
-                "typ": "Hauptzähler"
+                "typ": "Hauptzähler",
+                "einheit": "m³"
             },
             {
                 "nr": "04AB019104",
                 "art": "Wasser",
-                "typ": "Hauptzähler"
+                "typ": "Hauptzähler",
+                "einheit": "m³"
             },
             {
                 "nr": "3650005100260",
                 "art": "Strom",
-                "typ": "Hauptzähler"
+                "typ": "Hauptzähler",
+                "einheit": "kWh"
             }
         ]
     }

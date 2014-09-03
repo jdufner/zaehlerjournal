@@ -17,4 +17,33 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
         zaehlerstaende[i].datum = new Date(zaehlerstaende[i].datum);
       }
     });
+  }])
+  .controller('ErfassungCtrl', ['$scope', function($scope){
+    $scope.zaehler = {
+        "adresse": "An der Tuchbleiche 6, Biebesheim",
+        "zaehlers":
+        [
+            {
+                "nr": "19080458",
+                "art": "Gas",
+                "typ": "Hauptzähler",
+                "einheit": "m³",
+            },
+            {
+                "nr": "04AB019104",
+                "art": "Wasser",
+                "typ": "Hauptzähler",
+                "einheit": "m³",
+            },
+            {
+                "nr": "3650005100260",
+                "art": "Strom",
+                "typ": "Hauptzähler",
+                "einheit": "kWh",
+            }
+        ]
+    };
+    $scope.speichern = function() {
+      console.log($scope.zaehler.zaehlers[0].stand);
+    };
   }]);
