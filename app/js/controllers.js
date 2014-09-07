@@ -1,9 +1,9 @@
 'use strict';
 
 /* Controllers */
-
 angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
-  .controller('UebersichtCtrl', ['$scope', 'Zaehlerjournal', function($scope, Zaehlerjournal) {
+  .controller('UebersichtCtrl', ['$scope', 'Zaehlerjournal',
+    function($scope, Zaehlerjournal) {
     $scope.name = 'Übersicht';
     $scope.adressen = Zaehlerjournal.query();
     $scope.version = '0.1';
@@ -18,7 +18,9 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       }
     });
   }])
-  .controller('ErfassungCtrl', ['$scope', function($scope){
+  .controller('ErfassungCtrl', ['$scope', 'persistanceService',
+    function($scope, persistanceService){
+
     $scope.zaehler = {
         "adresse": "An der Tuchbleiche 6, Biebesheim",
         "zaehlers":
@@ -44,6 +46,8 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
         ]
     };
     $scope.speichern = function() {
-      console.log($scope.zaehler.zaehlers[0].stand);
+      console.dir($scope.zaehler.zaehlers);
+      console.log(persistanceService.isSupported());
+      persistanceService.saveData($scope.zaehler);
     };
   }]);

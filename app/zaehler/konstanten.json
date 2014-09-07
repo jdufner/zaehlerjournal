@@ -16,11 +16,7 @@
     ],
     "typen":
     [
-        {
-            "typ": "Hauptzähler"
-        },
-        {
-            "typ". "Nebenzähler"
-        }
+        "Hauptzähler",
+        "Nebenzähler"
     ]
 }

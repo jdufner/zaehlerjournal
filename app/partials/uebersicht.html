@@ -1,20 +1,14 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2">
-      <h1>{{name}}</h1>
+<h1>{{name}}</h1>
 
-      <ul class="adresse">
-        <li ng-repeat="adresse in adressen">
-          {{adresse.adresse}}
-          <ul class="zaehler">
-            <li ng-repeat="zaehler in adresse.zaehlers">{{zaehler.art}}
-              <p><a href="#/zaehler/{{zaehler.nr}}">{{zaehler.nr}} ({{zaehler.typ}})</a></p>
-            </li>
-          </ul>
-        </li>
-      </ul>
+<ul class="adresse">
+  <li ng-repeat="adresse in adressen">
+    {{adresse.adresse}}
+    <ul class="zaehler">
+      <li ng-repeat="zaehler in adresse.zaehlers">{{zaehler.art}}
+        <p><a href="#/zaehler/{{zaehler.nr}}">{{zaehler.nr}} ({{zaehler.typ}})</a></p>
+      </li>
+    </ul>
+  </li>
+</ul>
 
-      <p>Version: {{version}}</p>
-    </div>
-  </div>
-</div>
+<p>Version: {{version}}</p>

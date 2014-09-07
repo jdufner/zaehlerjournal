@@ -14,4 +14,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/zaehler/:zaehlerNr', {templateUrl: 'partials/details.html', controller: 'DetailsCtrl'});
   $routeProvider.when('/erfassung', {templateUrl: 'partials/erfassung.html', controller: 'ErfassungCtrl'});
   $routeProvider.otherwise({redirectTo: '/uebersicht'});
+}]).
+run(['$rootScope', function($rootScope){
+  console.log('initialize ...');
 }]);
