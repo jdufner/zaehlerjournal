@@ -66,4 +66,25 @@ describe('controllers', function(){
 
   });
 
+  it('should exists', inject(function($controller) {
+    //spec body
+    var detailsCtrl = $controller('EinstellungenCtrl', { $scope: {}, });
+    expect(detailsCtrl).toBeDefined();
+  }));
+
+  describe('EinstellungenCtrl', function() {
+    var $httpBackend, scope, routeParams, ctrl;
+
+    beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+      scope = $rootScope.$new();
+      ctrl = $controller('EinstellungenCtrl', {$scope: scope});
+    }));
+
+    it('should create "Einstellungen" model with 1 "Basisdaten"', function() {
+      expect(scope.einstellungen.arten.length).toBe(5);
+      expect(scope.einstellungen.arten[1]).toEqualData({'art': 'Gas', 'einheit': 'm³'});
+    });
+
+  });
+
 });

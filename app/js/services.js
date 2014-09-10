@@ -11,13 +11,30 @@ zaehlerjournalServices.value('version', '0.1');
 //
 zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
   function($resource) {
-    return $resource('zaehler/zaehler.json', {}, {
-      query: {
-        method: 'GET',
-        params: {},
-        isArray: true
-      }
-    });
+    var adressen = [];
+    var zaehler = [];
+    function getAdressen() {
+      return adressen;
+    };
+    function addAdresse(adresse) {
+      adressen.push({'id': adressen.length, 'adresse': adresse});
+      console.dir(adressen);
+      //zaehler.push({'adresse': adresse});
+    }
+    function query() {
+      return $resource('zaehler/zaehler.json', {}, {
+        query: {
+          method: 'GET',
+          params: {},
+          isArray: true
+        }
+      });
+    };
+    return {
+      addAdresse: addAdresse,
+      getAdressen: getAdressen,
+      query: query
+    }
   }
 ]);
 

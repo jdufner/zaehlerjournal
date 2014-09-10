@@ -38,4 +38,17 @@ describe('Zählerjournal', function() {
 
   });
 
+  describe('einstellungen', function() {
+
+    beforeEach(function() {
+      browser.get('index.html#/einstellungen');
+    });
+
+    it('should render einstellungen when user navigates to /einstellungen', function() {
+      expect(element.all(by.css('[ng-view] h1')).first().getText()).
+        toMatch(/Einstellungen/);
+    });
+
+  });
+
 });

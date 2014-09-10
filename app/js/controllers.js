@@ -2,12 +2,6 @@
 
 /* Controllers */
 angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
-  .controller('UebersichtCtrl', ['$scope', 'Zaehlerjournal',
-    function($scope, Zaehlerjournal) {
-    $scope.name = 'Übersicht';
-    $scope.adressen = Zaehlerjournal.query();
-    $scope.version = '0.1';
-  }])
   .controller('DetailsCtrl', ['$scope', '$routeParams', 'Zaehlerdetails', function($scope, $routeParams, Zaehlerdetails) {
     $scope.zaehlerNr = $routeParams.zaehlerNr;
     $scope.staende = Zaehlerdetails.query({zaehlerNr: $routeParams.zaehlerNr}, function(zaehlerstaende) {
@@ -17,6 +11,39 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
         zaehlerstaende[i].datum = new Date(zaehlerstaende[i].datum);
       }
     });
+  }])
+  .controller('EinstellungenCtrl', ['$scope', '$location', 'Zaehlerjournal', function($scope, $location, Zaehlerjournal) {
+    $scope.einstellungen = {
+      'arten': [{
+        'art': 'Fernwärme',
+        'einheit': 'kWh'
+      }, {
+        'art': 'Gas',
+        'einheit': 'm³'
+      }, {
+        'art': 'Solarstrom',
+        'einheit': 'kWh'
+      }, {
+        'art': 'Strom',
+        'einheit': 'kWh'
+      }, {
+        'art': 'Wasser',
+        'einheit': 'm³'
+      }],
+      'typen': ['Hauptzähler', 'Nebenzähler']
+    };
+    $scope.adressen = Zaehlerjournal.getAdressen();
+    $scope.createAdresse = function() {
+      if (angular.isDefined($scope.adresse) &&  $scope.adresse.length > 0) {
+        Zaehlerjournal.addAdresse($scope.adresse);
+        $scope.adresse = null;
+        $scope.adressen = Zaehlerjournal.getAdressen();
+      };
+    };
+    $scope.editAdresse = function(event) {
+      console.log(event.target.value + ' ' + Zaehlerjournal.getAdressen()[event.target.value].adresse);
+      $location.path( '/einstellungen/' +event.target.value);
+    }
   }])
   .controller('ErfassungCtrl', ['$scope', 'persistanceService',
     function($scope, persistanceService){
@@ -50,4 +77,11 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       console.log(persistanceService.isSupported());
       persistanceService.saveData($scope.zaehler);
     };
-  }]);
+  }])
+  .controller('UebersichtCtrl', ['$scope', 'Zaehlerjournal',
+    function($scope, Zaehlerjournal) {
+    $scope.name = 'Übersicht';
+    $scope.adressen = Zaehlerjournal.query();
+    $scope.version = '0.1';
+  }])
+;
