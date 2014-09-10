@@ -12,7 +12,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       }
     });
   }])
-  .controller('EinstellungenCtrl', ['$scope', '$location', 'Zaehlerjournal', function($scope, $location, Zaehlerjournal) {
+  .controller('EinstellungenCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', function($scope, $routeParams, Zaehlerjournal) {
     $scope.einstellungen = {
       'arten': [{
         'art': 'Fernwärme',
@@ -33,6 +33,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       'typen': ['Hauptzähler', 'Nebenzähler']
     };
     $scope.adressen = Zaehlerjournal.getAdressen();
+    console.log($routeParams.adresse);
     $scope.createAdresse = function() {
       if (angular.isDefined($scope.adresse) &&  $scope.adresse.length > 0) {
         Zaehlerjournal.addAdresse($scope.adresse);
@@ -40,10 +41,6 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
         $scope.adressen = Zaehlerjournal.getAdressen();
       };
     };
-    $scope.editAdresse = function(event) {
-      console.log(event.target.value + ' ' + Zaehlerjournal.getAdressen()[event.target.value].adresse);
-      $location.path( '/einstellungen/' +event.target.value);
-    }
   }])
   .controller('ErfassungCtrl', ['$scope', 'persistanceService',
     function($scope, persistanceService){
