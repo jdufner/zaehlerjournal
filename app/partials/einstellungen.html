@@ -10,18 +10,16 @@
     </p>
     <p>
       <button type="submit" class="btn btn-default" ng-click="createAdresse()">Speichern</button>
+      <!--button type="button" class="btn btn-default" ng-click="createAdresse()">Speichern</button-->
     </p>
     <p>
       <div class="row">
         <div class="col-md-4" ng-repeat="a in adressen">
-          <p><button type="button" class="btn btn-default btn-lg btn-block" ng-click="editAdresse($event);" ng-value="{{a.id}}">{{a.adresse}}</button></p>
+          <p><a class="btn btn-default btn-lg btn-block" ng-href="#/einstellungen/{{a.adresse|encodeUriComponent}}">{{a.adresse}}</a></p>
         </div>
       </div>
     </p>
   </form>
-</p>
-
-<p>
 </p>
 
 <hr>
