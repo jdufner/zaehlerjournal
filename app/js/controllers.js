@@ -12,34 +12,57 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       }
     });
   }])
-  .controller('EinstellungenCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', function($scope, $routeParams, Zaehlerjournal) {
-    $scope.einstellungen = {
-      'arten': [{
-        'art': 'Fernwärme',
-        'einheit': 'kWh'
-      }, {
-        'art': 'Gas',
-        'einheit': 'm³'
-      }, {
-        'art': 'Solarstrom',
-        'einheit': 'kWh'
-      }, {
-        'art': 'Strom',
-        'einheit': 'kWh'
-      }, {
-        'art': 'Wasser',
-        'einheit': 'm³'
-      }],
-      'typen': ['Hauptzähler', 'Nebenzähler']
-    };
+  .controller('EinstellungenCtrl', ['$scope', 'Zaehlerjournal', function($scope, Zaehlerjournal) {
     $scope.adressen = Zaehlerjournal.getAdressen();
-    console.log($routeParams.adresse);
     $scope.createAdresse = function() {
       if (angular.isDefined($scope.adresse) &&  $scope.adresse.length > 0) {
         Zaehlerjournal.addAdresse($scope.adresse);
         $scope.adresse = null;
         $scope.adressen = Zaehlerjournal.getAdressen();
       };
+    };
+  }])
+  .controller('EinstellungenAdresseCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', function($scope, $routeParams, Zaehlerjournal) {
+    $scope.metadaten = {
+      'art': {
+        'name': 'Art',
+        'werte': [{
+          'id': 0,
+          'art': 'Fernwärme',
+          'einheit': 'kWh'
+        }, {
+          'id': 1,
+          'art': 'Gas',
+          'einheit': 'm³'
+        }, {
+          'id': 2,
+          'art': 'Solarstrom',
+          'einheit': 'kWh'
+        }, {
+          'id': 3,
+          'art': 'Strom',
+          'einheit': 'kWh'
+        }, {
+          'id': 4,
+          'art': 'Wasser',
+          'einheit': 'm³'
+        }]
+      },
+      'typ': {
+        'name': 'Typ',
+        'werte': [{
+          'id': 0,
+          'art': 'Hauptzähler'
+        }, {
+          'id': 1,
+          'art': 'Nebenzähler'
+       }]
+      }
+    };
+    $scope.adresse = $routeParams.adresse;
+    $scope.adressen = Zaehlerjournal.getAdressen();
+    $scope.saveAdresse = function() {
+      console.log('EinstellungenAdresseCtrl.saveAdresse()');
     };
   }])
   .controller('ErfassungCtrl', ['$scope', 'persistanceService',
