@@ -12,7 +12,6 @@ zaehlerjournalServices.value('version', '0.1');
 zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
   function($resource) {
     var adressen = [];
-    var zaehler = [];
     function getAdressen() {
       return adressen;
     };
@@ -20,7 +19,26 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
       adressen.push({'id': adressen.length, 'adresse': adresse});
       console.dir(adressen);
       //zaehler.push({'adresse': adresse});
-    }
+    };
+    function findAdresseByText(text) {
+      for (var i = 0; i < adressen.length; i++) {
+        if (adressen[i].adresse === text) {
+          //console.log('i=' + i + ', ' + adressen[i]);
+          return adressen[i];
+        }
+      };
+      return null;
+    };
+    function addZaehler(text, zaehler) {
+      //console.log(text + ', ' + zaehler);
+      var adresse = findAdresseByText(text);
+      //console.dir(adresse);
+      if (angular.isUndefined(adresse.zaehlers)) {
+        adresse.zaehlers = new Array();
+      };
+      adresse.zaehlers.push(angular.copy(zaehler));
+      //console.dir(adresse);
+    };
     function query() {
       return $resource('zaehler/zaehler.json', {}, {
         query: {
@@ -32,6 +50,7 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
     };
     return {
       addAdresse: addAdresse,
+      addZaehler: addZaehler,
       getAdressen: getAdressen,
       query: query
     }

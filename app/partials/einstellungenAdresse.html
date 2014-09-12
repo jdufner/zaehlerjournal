@@ -7,20 +7,24 @@
     <div class="col-md-12">
       <p>
         <label for="art">{{metadaten.art.name}}</label>
-        <select class="form-control">
+        <!--select name="art" class="form-control" ng-model="zaehler.art">
           <option value="{{a.id}}" ng-repeat="a in metadaten.art.werte">{{a.art}} ({{a.einheit}})</option>
+        </select-->
+        <select name="art" class="form-control" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte">
         </select>
       </p>
       <p>
         <label for="typ">{{metadaten.typ.name}}</label>
-        <select class="form-control">
+        <!--select name="typ" class="form-control" ng-model="zaehler.typ">
           <option value="{{t.id}}" ng-repeat="t in metadaten.typ.werte">{{t.art}}</option>
+        </select-->
+        <select name="typ" class="form-control" ng-model="zaehler.typ" ng-options="t.art for t in metadaten.typ.werte">
         </select>
       </p>
+      <p>
+        <button type="submit" class="btn btn-default" ng-click="saveAdresse()">Speichern</button>
+      </p>
     </div>
-    <p>
-      <button type="submit" class="btn btn-default" ng-click="saveAdresse()">Speichern</button>
-    </p>
     <!--p>
       <div class="row">
         <div class="col-md-4" ng-repeat="a in adressen">
