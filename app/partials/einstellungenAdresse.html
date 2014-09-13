@@ -3,21 +3,35 @@
 <h2>Zähler</h2>
 
 <p>
+  <div class="col-md-12">
+    <p ng-repeat="z in a.zaehlers">{{z.art.art}} ({{z.art.einheit}}) {{z.typ.art}} {{z.nr}}
+      <!--button type="button" class="btn btn-default btn-md">
+        <span class="glyphicon glyphicon-edit"></span> Edit
+      </button>
+      <button type="button" class="btn btn-default btn-md">
+        <span class="glyphicon glyphicon-remove"></span> Remove
+      </button>
+      <button type="button" class="btn btn-default btn-md">
+        <span class="glyphicon glyphicon-chevron-up"></span> Up
+      </button>
+      <button type="button" class="btn btn-default btn-md">
+        <span class="glyphicon glyphicon-chevron-down"></span> Down
+      </button-->
+    </p>
+  </div>
   <form novalidate class="form-horizontal" role="form" ng-controller="EinstellungenAdresseCtrl">
     <div class="col-md-12">
       <p>
+        <label for="nr">Zählernummer</label>
+        <input type="text" class="form-control" ng-model="zaehler.nr"></input>
+      </p>
+      <p>
         <label for="art">{{metadaten.art.name}}</label>
-        <!--select name="art" class="form-control" ng-model="zaehler.art">
-          <option value="{{a.id}}" ng-repeat="a in metadaten.art.werte">{{a.art}} ({{a.einheit}})</option>
-        </select-->
         <select name="art" class="form-control" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte">
         </select>
       </p>
       <p>
         <label for="typ">{{metadaten.typ.name}}</label>
-        <!--select name="typ" class="form-control" ng-model="zaehler.typ">
-          <option value="{{t.id}}" ng-repeat="t in metadaten.typ.werte">{{t.art}}</option>
-        </select-->
         <select name="typ" class="form-control" ng-model="zaehler.typ" ng-options="t.art for t in metadaten.typ.werte">
         </select>
       </p>
@@ -25,13 +39,6 @@
         <button type="submit" class="btn btn-default" ng-click="saveAdresse()">Speichern</button>
       </p>
     </div>
-    <!--p>
-      <div class="row">
-        <div class="col-md-4" ng-repeat="a in adressen">
-          <p><a class="btn btn-default btn-lg btn-block" ng-href="#/einstellungen/{{a.adresse|encodeUriComponent}}">{{a.adresse}}</a></p>
-        </div>
-      </div>
-    </p-->
   </form>
 </p>
 

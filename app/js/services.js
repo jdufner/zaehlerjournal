@@ -51,6 +51,7 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
     return {
       addAdresse: addAdresse,
       addZaehler: addZaehler,
+      findAdresseByText: findAdresseByText,
       getAdressen: getAdressen,
       query: query
     }

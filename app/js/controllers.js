@@ -62,10 +62,10 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
     $scope.adresse = $routeParams.adresse;
     $scope.adressen = Zaehlerjournal.getAdressen();
     $scope.saveAdresse = function() {
-      //console.log('EinstellungenAdresseCtrl.saveAdresse()');
-      //console.dir($scope.zaehler);
+      console.dir($scope.zaehler);
       Zaehlerjournal.addZaehler($scope.adresse, $scope.zaehler);
     };
+    $scope.a = Zaehlerjournal.findAdresseByText($scope.adresse);
   }])
   .controller('ErfassungCtrl', ['$scope', 'persistanceService',
     function($scope, persistanceService){
