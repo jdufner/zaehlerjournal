@@ -5,7 +5,7 @@
     <a href="#/erfassung/{{immobilie.adresse}}">{{immobilie.adresse}}</a>
     <ul class="zaehler">
       <li ng-repeat="zaehler in immobilie.zaehlers">{{zaehler.art.art}} ({{zaehler.art.einheit}})
-        <p><a href="#/zaehler/{{zaehler.nr}}">{{zaehler.nr}} ({{zaehler.typ.art}})</a></p>
+        <p>{{zaehler.nr}} ({{zaehler.typ.art}})</p>
       </li>
     </ul>
   </li>
