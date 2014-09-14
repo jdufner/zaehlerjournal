@@ -13,8 +13,8 @@
     </p>
     <p>
       <div class="row">
-        <div class="col-md-4" ng-repeat="a in adressen">
-          <p><a class="btn btn-default btn-lg btn-block" ng-href="#/einstellungen/{{a.adresse|encodeUriComponent}}">{{a.adresse}}</a></p>
+        <div class="col-md-4" ng-repeat="immobilie in immobilien">
+          <p><a class="btn btn-default btn-lg btn-block" ng-href="#/einstellungen/{{immobilie.adresse|encodeUriComponent}}">{{immobilie.adresse}}</a></p>
         </div>
       </div>
     </p>
@@ -22,4 +22,4 @@
 </p>
 
 <hr>
-<pre>adressen = {{adressen}}</pre>
+<pre>immobilien = {{immobilien}}</pre>

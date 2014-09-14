@@ -2,23 +2,13 @@
 
 /* Controllers */
 angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
-  .controller('DetailsCtrl', ['$scope', '$routeParams', 'Zaehlerdetails', function($scope, $routeParams, Zaehlerdetails) {
-    $scope.zaehlerNr = $routeParams.zaehlerNr;
-    $scope.staende = Zaehlerdetails.query({zaehlerNr: $routeParams.zaehlerNr}, function(zaehlerstaende) {
-      // Callbackfunktion nach dem Laden der Zaehlerstände
-      for (var i = 0; i < zaehlerstaende.length; i++) {
-        // Wandle String in Date-Objekt
-        zaehlerstaende[i].datum = new Date(zaehlerstaende[i].datum);
-      }
-    });
-  }])
   .controller('EinstellungenCtrl', ['$scope', 'Zaehlerjournal', function($scope, Zaehlerjournal) {
-    $scope.adressen = Zaehlerjournal.getAdressen();
+    $scope.immobilien = Zaehlerjournal.getImmobilien();
     $scope.createAdresse = function() {
       if (angular.isDefined($scope.adresse) &&  $scope.adresse.length > 0) {
-        Zaehlerjournal.addAdresse($scope.adresse);
+        Zaehlerjournal.addImmobilie($scope.adresse);
         $scope.adresse = null;
-        $scope.adressen = Zaehlerjournal.getAdressen();
+        $scope.immobilien = Zaehlerjournal.getImmobilien();
       };
     };
   }])
@@ -60,50 +50,32 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       }
     };
     $scope.adresse = $routeParams.adresse;
-    $scope.adressen = Zaehlerjournal.getAdressen();
-    $scope.saveAdresse = function() {
-      console.dir($scope.zaehler);
+    $scope.immobilien = Zaehlerjournal.getImmobilien();
+    $scope.saveImmobilie = function() {
+      //console.dir($scope.zaehler);
       Zaehlerjournal.addZaehler($scope.adresse, $scope.zaehler);
+      $scope.zaehler = null;
     };
-    $scope.a = Zaehlerjournal.findAdresseByText($scope.adresse);
+    $scope.immobilie = Zaehlerjournal.findImmobilieByAdresse($scope.adresse);
   }])
-  .controller('ErfassungCtrl', ['$scope', 'persistanceService',
-    function($scope, persistanceService){
-
-    $scope.zaehler = {
-        "adresse": "An der Tuchbleiche 6, Biebesheim",
-        "zaehlers":
-        [
-            {
-                "nr": "19080458",
-                "art": "Gas",
-                "typ": "Hauptzähler",
-                "einheit": "m³",
-            },
-            {
-                "nr": "04AB019104",
-                "art": "Wasser",
-                "typ": "Hauptzähler",
-                "einheit": "m³",
-            },
-            {
-                "nr": "3650005100260",
-                "art": "Strom",
-                "typ": "Hauptzähler",
-                "einheit": "kWh",
-            }
-        ]
-    };
-    $scope.speichern = function() {
-      console.dir($scope.zaehler.zaehlers);
-      console.log(persistanceService.isSupported());
-      persistanceService.saveData($scope.zaehler);
+  .controller('ErfassungCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', 'persistanceService',
+    function($scope, $routeParams, Zaehlerjournal, persistanceService){
+    $scope.adresse = $routeParams.adresse;
+    $scope.immobilie = Zaehlerjournal.findImmobilieByAdresse($scope.adresse);
+    $scope.immobilien = Zaehlerjournal.getImmobilien();
+    $scope.saveZaehler = function() {
+      //console.log($scope.immobilie.zaehlerstand);
+      Zaehlerjournal.addZaehlerstand($scope.immobilie, $scope.immobilie.zaehlers);
+      for (var i = 0; i < $scope.immobilie.zaehlers.length; i++) {
+        $scope.immobilie.zaehlers[i].zaehlerstand = null;
+      };
+      //console.log(persistanceService.isSupported());
+      //persistanceService.saveData($scope.zaehler);
     };
   }])
   .controller('UebersichtCtrl', ['$scope', 'Zaehlerjournal',
     function($scope, Zaehlerjournal) {
-    $scope.name = 'Übersicht';
-    $scope.adressen = Zaehlerjournal.query();
-    $scope.version = '0.1';
+    //$scope.adressen = Zaehlerjournal.query();
+    $scope.immobilien = Zaehlerjournal.getImmobilien();
   }])
 ;

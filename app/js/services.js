@@ -11,33 +11,46 @@ zaehlerjournalServices.value('version', '0.1');
 //
 zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
   function($resource) {
-    var adressen = [];
-    function getAdressen() {
-      return adressen;
+    var immobilien = [];
+    function getImmobilien() {
+      return immobilien;
     };
-    function addAdresse(adresse) {
-      adressen.push({'id': adressen.length, 'adresse': adresse});
-      console.dir(adressen);
-      //zaehler.push({'adresse': adresse});
+    function addImmobilie(adresse) {
+      //console.dir(adresse);
+      immobilien.push({'id': immobilien.length, 'adresse': adresse});
+      //console.dir(immobilien);
     };
-    function findAdresseByText(text) {
-      for (var i = 0; i < adressen.length; i++) {
-        if (adressen[i].adresse === text) {
-          //console.log('i=' + i + ', ' + adressen[i]);
-          return adressen[i];
+    function findImmobilieByAdresse(adresse) {
+      for (var i = 0; i < immobilien.length; i++) {
+        if (immobilien[i].adresse === adresse) {
+          //console.log('i=' + i + ', ' + immobilien[i]);
+          return immobilien[i];
         }
       };
       return null;
     };
-    function addZaehler(text, zaehler) {
-      //console.log(text + ', ' + zaehler);
-      var adresse = findAdresseByText(text);
-      //console.dir(adresse);
-      if (angular.isUndefined(adresse.zaehlers)) {
-        adresse.zaehlers = new Array();
+    function addZaehler(adresse, zaehler) {
+      //console.log(adresse + ', ' + zaehler);
+      var immobilie = findImmobilieByAdresse(adresse);
+      //console.dir(immobilie);
+      if (angular.isUndefined(immobilie.zaehlers)) {
+        immobilie.zaehlers = new Array();
       };
-      adresse.zaehlers.push(angular.copy(zaehler));
-      //console.dir(adresse);
+      immobilie.zaehlers.push(angular.copy(zaehler));
+      //console.dir(immobilie);
+    };
+    function addZaehlerstand(immobilie, zaehlers) {
+      //console.log(zaehlers);
+      for (var i = 0; i < zaehlers.length; i++) {
+        if (angular.isUndefined(zaehlers[i].zaehlerstaende)) {
+          zaehlers[i].zaehlerstaende = new Array();
+        };
+        zaehlers[i].zaehlerstaende.push({
+          'id': zaehlers[i].zaehlerstaende.length,
+          'datum': new Date(),
+          'stand': zaehlers[i].zaehlerstand
+        });
+      };
     };
     function query() {
       return $resource('zaehler/zaehler.json', {}, {
@@ -49,10 +62,11 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
       });
     };
     return {
-      addAdresse: addAdresse,
+      addImmobilie: addImmobilie,
       addZaehler: addZaehler,
-      findAdresseByText: findAdresseByText,
-      getAdressen: getAdressen,
+      addZaehlerstand: addZaehlerstand,
+      findImmobilieByAdresse: findImmobilieByAdresse,
+      getImmobilien: getImmobilien,
       query: query
     }
   }

@@ -4,7 +4,7 @@
 
 <p>
   <div class="col-md-12">
-    <p ng-repeat="z in a.zaehlers">{{z.art.art}} ({{z.art.einheit}}) {{z.typ.art}} {{z.nr}}
+    <p ng-repeat="z in immobilie.zaehlers">{{z.art.art}} ({{z.art.einheit}}) {{z.typ.art}} {{z.nr}}
       <!--button type="button" class="btn btn-default btn-md">
         <span class="glyphicon glyphicon-edit"></span> Edit
       </button>
@@ -36,11 +36,11 @@
         </select>
       </p>
       <p>
-        <button type="submit" class="btn btn-default" ng-click="saveAdresse()">Speichern</button>
+        <button type="submit" class="btn btn-default" ng-click="saveImmobilie()">Speichern</button>
       </p>
     </div>
   </form>
 </p>
 
 <hr>
-<pre>adressen = {{adressen}}</pre>
+<pre>immobilien = {{immobilien}}</pre>

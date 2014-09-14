@@ -1,14 +1,15 @@
-<h1>{{name}}</h1>
+<h1>Übersicht</h1>
 
 <ul class="adresse">
-  <li ng-repeat="adresse in adressen">
-    {{adresse.adresse}}
+  <li ng-repeat="immobilie in immobilien">
+    <a href="#/erfassung/{{immobilie.adresse}}">{{immobilie.adresse}}</a>
     <ul class="zaehler">
-      <li ng-repeat="zaehler in adresse.zaehlers">{{zaehler.art}}
-        <p><a href="#/zaehler/{{zaehler.nr}}">{{zaehler.nr}} ({{zaehler.typ}})</a></p>
+      <li ng-repeat="zaehler in immobilie.zaehlers">{{zaehler.art.art}} ({{zaehler.art.einheit}})
+        <p><a href="#/zaehler/{{zaehler.nr}}">{{zaehler.nr}} ({{zaehler.typ.art}})</a></p>
       </li>
     </ul>
   </li>
 </ul>
 
-<p>Version: {{version}}</p>
+<hr>
+<pre>immobilien = {{immobilien}}</pre>
