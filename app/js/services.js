@@ -53,35 +53,23 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
         });
       };
     };
-    function query() {
-      return $resource('zaehler/zaehler.json', {}, {
-        query: {
-          method: 'GET',
-          params: {},
-          isArray: true
-        }
-      });
-    };
     return {
       addImmobilie: addImmobilie,
       addZaehler: addZaehler,
       addZaehlerstand: addZaehlerstand,
       findImmobilieByAdresse: findImmobilieByAdresse,
-      getImmobilien: getImmobilien,
-      query: query
+      getImmobilien: getImmobilien
     }
   }
 ]);
 
-zaehlerjournalServices.factory('Zaehlerdetails', ['$resource',
+zaehlerjournalServices.factory('Konstanten', ['$resource',
   function($resource) {
-    return $resource('zaehler/:zaehlerNr.json', {}, {
+    return $resource('zaehler/konstanten.json', {}, {
       query: {
         method: 'GET',
-        params: {
-          zaehlerNr: 'zaehler'
-        },
-        isArray: true
+        params: {},
+        isArray: false
       }
     });
   }

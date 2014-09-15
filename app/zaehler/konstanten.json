@@ -1,22 +1,36 @@
 {
-    "arten":
-    [
-        {
-            "art": "Gas",
-            "einheit": "m³"
-        },
-        {
-            "art": "Strom",
-            "einheit": "kWh"
-        },
-        {
-            "art": "Wasser",
-            "einheit": "m³"
-        }
-    ],
-    "typen":
-    [
-        "Hauptzähler",
-        "Nebenzähler"
-    ]
+    "art": {
+        "name": "Art",
+        "werte": [{
+          "id": 0,
+          "art": "Fernwärme",
+          "einheit": "kWh"
+        }, {
+          "id": 1,
+          "art": "Gas",
+          "einheit": "m³"
+        }, {
+          "id": 2,
+          "art": "Solarstrom",
+          "einheit": "kWh"
+        }, {
+          "id": 3,
+          "art": "Strom",
+          "einheit": "kWh"
+        }, {
+          "id": 4,
+          "art": "Wasser",
+          "einheit": "m³"
+        }]
+    },
+    "typ": {
+        "name": "Typ",
+        "werte": [{
+          "id": 0,
+          "art": "Hauptzähler"
+        }, {
+          "id": 1,
+          "art": "Nebenzähler"
+        }]
+    }
 }

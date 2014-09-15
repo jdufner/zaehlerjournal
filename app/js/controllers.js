@@ -12,43 +12,9 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       };
     };
   }])
-  .controller('EinstellungenAdresseCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', function($scope, $routeParams, Zaehlerjournal) {
-    $scope.metadaten = {
-      'art': {
-        'name': 'Art',
-        'werte': [{
-          'id': 0,
-          'art': 'Fernwärme',
-          'einheit': 'kWh'
-        }, {
-          'id': 1,
-          'art': 'Gas',
-          'einheit': 'm³'
-        }, {
-          'id': 2,
-          'art': 'Solarstrom',
-          'einheit': 'kWh'
-        }, {
-          'id': 3,
-          'art': 'Strom',
-          'einheit': 'kWh'
-        }, {
-          'id': 4,
-          'art': 'Wasser',
-          'einheit': 'm³'
-        }]
-      },
-      'typ': {
-        'name': 'Typ',
-        'werte': [{
-          'id': 0,
-          'art': 'Hauptzähler'
-        }, {
-          'id': 1,
-          'art': 'Nebenzähler'
-       }]
-      }
-    };
+  .controller('EinstellungenAdresseCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', 'Konstanten',
+    function($scope, $routeParams, Zaehlerjournal, Konstanten) {
+    $scope.metadaten = Konstanten.query();
     $scope.adresse = $routeParams.adresse;
     $scope.immobilien = Zaehlerjournal.getImmobilien();
     $scope.saveImmobilie = function() {
