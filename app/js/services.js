@@ -36,6 +36,7 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
       if (angular.isUndefined(immobilie.zaehlers)) {
         immobilie.zaehlers = new Array();
       };
+      zaehler.zaehlerstaende = new Array();
       immobilie.zaehlers.push(angular.copy(zaehler));
       //console.dir(immobilie);
     };

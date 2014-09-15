@@ -77,5 +77,17 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
     function($scope, Zaehlerjournal) {
     //$scope.adressen = Zaehlerjournal.query();
     $scope.immobilien = Zaehlerjournal.getImmobilien();
+    for (var i = 0; i < $scope.immobilien.length; i++) {
+      for (var j = 0; j < $scope.immobilien[i].zaehlers.length; j++) {
+        for (var k = 0; k < $scope.immobilien[i].zaehlers[j].zaehlerstaende.length; k++) {
+          $scope.immobilien[i].zaehlers[j].aktuellerZaehlerstand = 0;
+          var zaehlerstand = parseFloat($scope.immobilien[i].zaehlers[j].zaehlerstaende[k].stand);
+          //console.log(zaehlerstand);
+          if ($scope.immobilien[i].zaehlers[j].aktuellerZaehlerstand < zaehlerstand) {
+            $scope.immobilien[i].zaehlers[j].aktuellerZaehlerstand = zaehlerstand;
+          }
+        }
+      }
+    }
   }])
 ;

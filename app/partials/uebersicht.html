@@ -1,15 +1,13 @@
 <h1>Übersicht</h1>
 
-<ul class="adresse">
-  <li ng-repeat="immobilie in immobilien">
-    <a href="#/erfassung/{{immobilie.adresse}}">{{immobilie.adresse}}</a>
-    <ul class="zaehler">
-      <li ng-repeat="zaehler in immobilie.zaehlers">{{zaehler.art.art}} ({{zaehler.art.einheit}})
-        <p>{{zaehler.nr}} ({{zaehler.typ.art}})</p>
-      </li>
-    </ul>
-  </li>
-</ul>
+<div class="col-md-12" ng-repeat="immobilie in immobilien">
+  <strong><a href="#/erfassung/{{immobilie.adresse}}">{{immobilie.adresse}}</a></strong>
+  <ul class="list-unstyled">
+    <li ng-repeat="zaehler in immobilie.zaehlers">
+      {{zaehler.art.art}} {{zaehler.nr}} ({{zaehler.typ.art}}): <em>{{zaehler.aktuellerZaehlerstand}} {{zaehler.art.einheit}}</em>
+    </li>
+  </ul>
+</div>
 
 <hr>
 <pre>immobilien = {{immobilien}}</pre>
