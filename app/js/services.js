@@ -46,9 +46,17 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
         if (angular.isUndefined(zaehlers[i].zaehlerstaende)) {
           zaehlers[i].zaehlerstaende = new Array();
         };
+        //console.log(zaehlers[i].zaehlerstand);
+        if (angular.isUndefined(zaehlers[i].zaehlerstand) || zaehlers[i].zaehlerstand == null) {
+          continue;
+        }
+        var d = new Date();
+        //console.dir(d);
+        //console.log(d.toLocaleString());
+        //console.log(d.getTimezoneOffset());
         zaehlers[i].zaehlerstaende.push({
           'id': zaehlers[i].zaehlerstaende.length,
-          'datum': new Date(),
+          'datum': d.toLocaleString(),
           'stand': zaehlers[i].zaehlerstand
         });
       };

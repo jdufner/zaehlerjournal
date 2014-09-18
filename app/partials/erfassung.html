@@ -3,9 +3,25 @@
 <form novalidate class="simple-form" role="form" ng-controller="ErfassungCtrl">
   <div ng-repeat="z in immobilie.zaehlers">
     <div class="form-group">
-      <label for="{{z.art.art}}">{{z.art.art}} ({{z.art.einheit}})</label>
+      <label for="{{z.art.art}}">{{z.art.art}} ({{z.art.einheit}}), Letzter Stand: {{z.aktuellerZaehlerstand}}</label>
       <input id="{{z.art.art}}" type="text" class="form-control" placeholder="{{z.art.einheit}}" ng-model="z.zaehlerstand"/>
     </div>
   </div>
   <button type="submit" class="btn btn-default" ng-click="saveZaehler()">Speichern</button>
 </form>
+
+<h1>Zählerstände</h1>
+
+<div ng-repeat="z in immobilie.zaehlers">
+  <h2>{{z.art.art}} {{z.nr}} ({{z.typ.art}})</h2>
+  <table class="table table-striped table-hover">
+    <tr>
+      <th>Datum</th>
+      <th>Stand</th>
+    </tr>
+    <tr ng-repeat="zaehlerstand in z.zaehlerstaende">
+      <td>{{zaehlerstand.datum}}</td>
+      <td>{{zaehlerstand.stand}} {{z.art.einheit}}</td>
+    </tr>
+  </table>
+</div>
