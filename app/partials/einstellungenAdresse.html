@@ -4,7 +4,7 @@
 
 <p>
   <div class="col-md-12">
-    <p ng-repeat="z in immobilie.zaehlers">{{z.art.art}} ({{z.art.einheit}}) {{z.typ.art}} {{z.nr}}
+    <p ng-repeat="z in immobilie.zaehlers">{{z.art.art}} {{z.nr}} ({{z.typ.art}})
       <!--button type="button" class="btn btn-default btn-md">
         <span class="glyphicon glyphicon-edit"></span> Edit
       </button>
@@ -22,13 +22,13 @@
   <form novalidate class="form-horizontal" role="form" ng-controller="EinstellungenAdresseCtrl">
     <div class="col-md-12">
       <p>
-        <label for="nr">Zählernummer</label>
-        <input type="text" class="form-control" ng-model="zaehler.nr"></input>
-      </p>
-      <p>
         <label for="art">{{metadaten.art.name}}</label>
         <select name="art" class="form-control" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte">
         </select>
+      </p>
+      <p>
+        <label for="nr">Zählernummer</label>
+        <input type="text" class="form-control" ng-model="zaehler.nr"></input>
       </p>
       <p>
         <label for="typ">{{metadaten.typ.name}}</label>

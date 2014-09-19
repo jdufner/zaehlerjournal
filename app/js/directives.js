@@ -3,9 +3,42 @@
 /* Directives */
 
 
-angular.module('zaehlerjournal.directives', []).
-  directive('appVersion', ['version', function(version) {
-    return function(scope, elm, attrs) {
-      elm.text(version);
-    };
-  }]);
+var zaehlerjouralDirectives = angular.module('zaehlerjournal.directives', []);
+
+var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d*)?$/;
+zaehlerjouralDirectives.directive('smartFloat', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+      ctrl.$parsers.unshift(function(viewValue) {
+        if (FLOAT_REGEXP.test(viewValue)) {
+          ctrl.$setValidity('float', true);
+          return parseFloat(viewValue.replace(',', '.'));
+        } else {
+          ctrl.$setValidity('float', false);
+          return undefined;
+        }
+      });
+    }
+  };
+});
+
+//zaehlerjouralDirectives.directive('numberformatter', function() {
+//  return {
+//    require: 'ngModel',
+//    link: function(scope, elm, attrs, ctrl) {
+//      // view -> model
+//      elm.on('blur', function() {
+//        scope.$apply(function() {
+//          ctrl.$setViewValue(elm.html());
+//        });
+//      });
+//      // model -> view
+//      ctrl.$render = function() {
+//        elm.html(ctrl.$viewValue);
+//      };
+//      // load init value from DOM
+//      ctrl.$setViewValue(elm.html());
+//    }
+//  };
+//});

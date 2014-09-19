@@ -3,14 +3,15 @@
 <form novalidate class="simple-form" name="form" role="form" ng-controller="ErfassungCtrl">
   <div class="form-group" ng-repeat="z in immobilie.zaehlers">
     <ng-form name="formgroup">
-      <label for="{{z.id}}">{{z.art.art}} ({{z.art.einheit}}), Letzter Stand: {{z.aktuellerZaehlerstand}}</label>
-      <input id="{{z.id}}" name="zaehlerstand" type="number" class="form-control" placeholder="{{z.art.einheit}}" ng-model="z.zaehlerstand" ng-required min="100"/>
+      <label for="{{z.id}}">{{z.art.art}} {{z.nr}} ({{z.typ.art}}), Letzter Stand: {{z.aktuellerZaehlerstand}} {{z.art.einheit}}</label>
+      <input id="{{z.id}}" name="zaehlerstand" type="text" class="form-control" placeholder="{{z.art.einheit}}" ng-model="z.zaehlerstand" ng-required smart-float/>
       <span ng-show="formgroup.zaehlerstand.$dirty">{{z.art.art}} erfasst!</span>
       <span ng-show="formgroup.zaehlerstand.$dirty && formgroup.zaehlerstand.$invalid">
         Validierung fehlgeschlagen
         <span ng-show="formgroup.zaehlerstand.$error.required">Bitte einen Zählerstand eingeben.</span>
-        <span ng-show="formgroup.zaehlerstand.$error.min">Wert muss größer 100 sein.</span>
+        <span ng-show="formgroup.zaehlerstand.$error.float">Bitte einen Zählerstand eingeben.</span>
       </span>
+      <span ng-show="formgroup.zaehlerstand.$error.float">Eingegebener Wert ist eine Dezimalzahl.</span>
     </ng-form>
   </div>
   <button type="submit" class="btn btn-default" ng-click="saveZaehler()">Speichern</button>
@@ -31,3 +32,12 @@
     </tr>
   </table>
 </div>
+
+<style type="text/css">
+  .form-group input.ng-invalid.ng-dirty {
+    background-color: #FF9999;
+  }
+  .form-group input.ng-valid.ng-dirty {
+    background-color: #99FF99;
+  }
+</style>

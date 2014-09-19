@@ -52,12 +52,9 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
           continue;
         }
         var d = new Date();
-        //console.dir(d);
-        //console.log(d.toLocaleString());
-        //console.log(d.getTimezoneOffset());
         zaehlers[i].zaehlerstaende.push({
           'id': zaehlers[i].zaehlerstaende.length,
-          'datum': d.toLocaleString(),
+          'datum': d.format('Y-m-d\\TH:i:s'),
           'stand': zaehlers[i].zaehlerstand
         });
       };
