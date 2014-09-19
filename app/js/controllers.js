@@ -5,7 +5,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
   .controller('EinstellungenCtrl', ['$scope', 'Zaehlerjournal', function($scope, Zaehlerjournal) {
     $scope.immobilien = Zaehlerjournal.getImmobilien();
     $scope.createAdresse = function() {
-      if (angular.isDefined($scope.adresse) &&  $scope.adresse.length > 0) {
+      if (angular.isDefined($scope.adresse) && $scope.adresse != null && $scope.adresse.length > 0) {
         Zaehlerjournal.addImmobilie($scope.adresse);
         $scope.adresse = null;
         $scope.immobilien = Zaehlerjournal.getImmobilien();

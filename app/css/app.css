@@ -28,3 +28,11 @@
   content: "";
   padding: 0;
 }
+
+/* Styles für die Form-Validierung */
+.form-group input.ng-invalid.ng-dirty {
+  background-color: #FF9999;
+}
+.form-group input.ng-valid.ng-dirty {
+  background-color: #99FF99;
+}
