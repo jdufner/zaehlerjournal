@@ -30,7 +30,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
     $scope.immobilie = Zaehlerjournal.findImmobilieByAdresse($scope.adresse);
     $scope.immobilien = Zaehlerjournal.getImmobilien();
     $scope.saveZaehler = function() {
-      //console.log($scope.immobilie.zaehlerstand);
+      //console.dir($scope.immobilie.zaehlers);
       Zaehlerjournal.addZaehlerstand($scope.immobilie, $scope.immobilie.zaehlers);
       for (var i = 0; i < $scope.immobilie.zaehlers.length; i++) {
         $scope.immobilie.zaehlers[i].zaehlerstand = null;
