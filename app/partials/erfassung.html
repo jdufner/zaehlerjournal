@@ -1,36 +1,56 @@
-<h1>Erfassung<br/><small>{{immobilie.adresse}}</small></h1>
+<div class="row">
+  <div class="col-md-12">
+    <h1>Erfassung<br/><small>{{immobilie.adresse}}</small></h1>
+  </div>
+</div>
 
-<p>
-  <form class="form-horizontal" name="form" role="form" ng-controller="ErfassungCtrl">
+<form class="form-horizontal" name="form" role="form" ng-controller="ErfassungCtrl">
+  <div class="row">
     <div class="form-group" ng-repeat="z in immobilie.zaehlers">
       <ng-form name="formgroup">
-        <label for="{{z.id}}">{{z.art.art}} {{z.nr}} ({{z.typ.art}}), Letzter Stand: {{z.aktuellerZaehlerstand}} {{z.art.einheit}}</label>
-        <input id="{{z.id}}" name="zaehlerstand" type="text" class="form-control" placeholder="{{z.art.einheit}}" ng-model="z.zaehlerstand" ng-required smart-float/>
-        <span ng-show="formgroup.zaehlerstand.$dirty">{{z.art.art}} erfasst!</span>
-        <span ng-show="formgroup.zaehlerstand.$dirty && formgroup.zaehlerstand.$invalid">
-          Validierung fehlgeschlagen
-          <span ng-show="formgroup.zaehlerstand.$error.required">Bitte einen Zählerstand eingeben.</span>
-          <span ng-show="formgroup.zaehlerstand.$error.float">Bitte einen Zählerstand eingeben.</span>
-        </span>
-        <span ng-show="formgroup.zaehlerstand.$error.float">Eingegebener Wert ist eine Dezimalzahl.</span>
+        <label class="col-md-2 control-label" for="{{z.id}}">{{z.art.art}} {{z.nr}} ({{z.typ.art}}), Letzter Stand: {{z.aktuellerZaehlerstand}} {{z.art.einheit}}</label>
+        <div class="col-md-10">
+          <input id="{{z.id}}" name="zaehlerstand" type="text" class="form-control" placeholder="{{z.art.einheit}}" ng-model="z.zaehlerstand" ng-required smart-float/>
+          <span ng-show="formgroup.zaehlerstand.$dirty">{{z.art.art}} erfasst!</span>
+          <span ng-show="formgroup.zaehlerstand.$dirty && formgroup.zaehlerstand.$invalid">
+            Validierung fehlgeschlagen
+            <span ng-show="formgroup.zaehlerstand.$error.required">Bitte einen Zählerstand eingeben.</span>
+            <span ng-show="formgroup.zaehlerstand.$error.float">Bitte einen Zählerstand eingeben.</span>
+          </span>
+          <span ng-show="formgroup.zaehlerstand.$error.float">Eingegebener Wert ist eine Dezimalzahl.</span>
+        </div>
       </ng-form>
     </div>
-    <button type="submit" class="btn btn-default" ng-click="saveZaehler()">Speichern</button>
-  </form>
-</p>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <button type="submit" class="btn btn-default" ng-click="saveZaehler()">Speichern</button>
+      </div>
+    </div>
+  </div>
+</form>
 
-<h1>Zählerstände</h1>
+<div class="row">
+  <div class="col-md-12">
+    <h1>Zählerstände</h1>
+  </div>
+</div>
 
-<div ng-repeat="z in immobilie.zaehlers">
-  <h2>{{z.art.art}} {{z.nr}} ({{z.typ.art}})</h2>
-  <table class="table table-striped table-hover">
-    <tr>
-      <th>Datum</th>
-      <th>Stand</th>
-    </tr>
-    <tr ng-repeat="zaehlerstand in z.zaehlerstaende">
-      <td>{{zaehlerstand.datum}}</td>
-      <td>{{zaehlerstand.stand}} {{z.art.einheit}}</td>
-    </tr>
-  </table>
+<div class="row">
+  <div class="col-md-12">
+    <div ng-repeat="z in immobilie.zaehlers">
+      <h2>{{z.art.art}} {{z.nr}} ({{z.typ.art}})</h2>
+      <table class="table table-striped table-hover">
+        <tr>
+          <th>Datum</th>
+          <th>Stand</th>
+        </tr>
+        <tr ng-repeat="zaehlerstand in z.zaehlerstaende">
+          <td>{{zaehlerstand.datum}}</td>
+          <td>{{zaehlerstand.stand}} {{z.art.einheit}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
