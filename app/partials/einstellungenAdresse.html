@@ -1,8 +1,16 @@
-<h1>{{adresse}}</h1>
+<div class="row">
+  <div class="col-md-12">
+    <h1>{{adresse}}</h1>
+  </div>
+</div>
 
-<h2>Zähler</h2>
+<!--div class="row">
+  <div class="col-md-12">
+    <h2>Zähler</h2>
+  </div>
+</div-->
 
-<p>
+<div class="row">
   <div class="col-md-12">
     <p ng-repeat="z in immobilie.zaehlers">{{z.art.art}} {{z.nr}} ({{z.typ.art}})
       <!--button type="button" class="btn btn-default btn-md">
@@ -19,25 +27,34 @@
       </button-->
     </p>
   </div>
-  <form class="form-horizontal" role="form" ng-controller="EinstellungenAdresseCtrl">
-    <div class="col-md-12">
-      <p>
-        <label for="art">{{metadaten.art.name}}</label>
-        <select name="art" class="form-control" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte">
-        </select>
-      </p>
-      <p>
-        <label for="nr">Zählernummer</label>
-        <input type="text" class="form-control" ng-model="zaehler.nr"></input>
-      </p>
-      <p>
-        <label for="typ">{{metadaten.typ.name}}</label>
-        <select name="typ" class="form-control" ng-model="zaehler.typ" ng-options="t.art for t in metadaten.typ.werte">
-        </select>
-      </p>
-      <p>
-        <button type="submit" class="btn btn-default" ng-click="saveImmobilie()">Speichern</button>
-      </p>
+</div>
+
+<div class="row">
+<form class="form-horizontal" role="form" ng-controller="EinstellungenAdresseCtrl">
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="art">{{metadaten.art.name}}</label>
+    <div class="col-md-10">
+      <select class="form-control" name="art" class="form-control" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte">
+      </select>
     </div>
-  </form>
-</p>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="nr">Zählernummer</label>
+    <div class="col-md-10">
+      <input type="text" class="form-control" ng-model="zaehler.nr"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="typ">{{metadaten.typ.name}}</label>
+    <div class="col-md-10">
+      <select name="typ" class="form-control" ng-model="zaehler.typ" ng-options="t.art for t in metadaten.typ.werte">
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <button type="submit" class="btn btn-default" ng-click="saveImmobilie()">Speichern</button>
+    </div>
+  </div>
+</form>
+</div>
