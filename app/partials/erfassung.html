@@ -8,23 +8,22 @@
   <div class="row">
     <div class="form-group" ng-repeat="z in immobilie.zaehlers">
       <ng-form name="formgroup">
-        <label class="col-md-2 control-label" for="{{z.id}}">{{z.art.art}} {{z.nr}} ({{z.typ.art}}), Letzter Stand: {{z.aktuellerZaehlerstand}} {{z.art.einheit}}</label>
-        <div class="col-md-10">
-          <input id="{{z.id}}" name="zaehlerstand" type="text" class="form-control" placeholder="{{z.art.einheit}}" ng-model="z.zaehlerstand" ng-required smart-float/>
-          <span ng-show="formgroup.zaehlerstand.$dirty">{{z.art.art}} erfasst!</span>
+        <label class="col-md-4 control-label" for="{{z.id}}">{{z.art.art}} {{z.nr}} ({{z.typ.art}})<br>Letzter Stand: {{z.aktuellerZaehlerstand}} {{z.art.einheit}}</label>
+        <div class="col-md-8">
+          <input id="{{z.id}}" name="zaehlerstand" type="text" class="form-control" placeholder="{{z.art.einheit}}" ng-model="z.zaehlerstand" ng-required min-value="{{z.aktuellerZaehlerstand}}"/>
           <span ng-show="formgroup.zaehlerstand.$dirty && formgroup.zaehlerstand.$invalid">
-            Validierung fehlgeschlagen
+            Validierung fehlgeschlagen.
             <span ng-show="formgroup.zaehlerstand.$error.required">Bitte einen Zählerstand eingeben.</span>
-            <span ng-show="formgroup.zaehlerstand.$error.float">Bitte einen Zählerstand eingeben.</span>
+            <span ng-show="formgroup.zaehlerstand.$error.float">Bitte eine Dezimalzahl eingeben.</span>
+            <span ng-show="formgroup.zaehlerstand.$error.minValue">Bitte geben sie mindestens {{z.aktuellerZaehlerstand}} ein.</span>
           </span>
-          <span ng-show="formgroup.zaehlerstand.$error.float">Eingegebener Wert ist eine Dezimalzahl.</span>
         </div>
       </ng-form>
     </div>
   </div>
   <div class="row">
     <div class="form-group">
-      <div class="col-md-offset-2 col-md-10">
+      <div class="col-md-offset-4 col-md-8">
         <button type="submit" class="btn btn-default" ng-click="saveZaehler()">Speichern</button>
       </div>
     </div>

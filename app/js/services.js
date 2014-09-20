@@ -38,6 +38,7 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
       };
       zaehler.zaehlerstaende = new Array();
       zaehler.id = immobilie.zaehlers.length;
+      zaehler.aktuellerZaehlerstand = 0.0;
       immobilie.zaehlers.push(angular.copy(zaehler));
       //console.dir(immobilie);
     };
@@ -57,6 +58,7 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
           'datum': d.format('Y-m-d\\TH:i:s'),
           'stand': zaehlers[i].zaehlerstand
         });
+        zaehlers[i].aktuellerZaehlerstand = zaehlers[i].zaehlerstand;
       };
     };
     return {
