@@ -10,15 +10,14 @@
   </div>
 </div-->
 
-<form class="form-horizontal" name="form" role="form" ng-controller="EinstellungenCtrl">
+<form class="form-horizontal" name="EinstellungenForm" role="form" ng-controller="EinstellungenCtrl">
   <div class="row">
     <div class="form-group">
-      <ng-form name="formgroup">
-        <label class="col-md-2 control-label" for="adresse">Adresse</label>
-        <div class="col-md-10">
-          <input class="form-control" id="adresse" type="text" placeholder="Straße Hausnr., Ort" ng-model="adresse" ng-required/>
-        </div>
-      </ng-form>
+      <label class="col-md-2 control-label" for="adresse">Adresse</label>
+      <div class="col-md-10">
+        <input class="form-control" id="adresse" name="adresse" type="text" placeholder="Straße Hausnr., Ort" ng-model="adresse" ng-required="true"/>
+        <span ng-show="EinstellungenForm.adresse.$dirty && EinstellungenForm.adresse.$invalid">Geben Sie bitte die Adresse des Hauses, der Wohnung oder Wohneinheit ein.</span>
+      </div>
     </div>
   </div>
   <div class="row">
