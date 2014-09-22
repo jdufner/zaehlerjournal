@@ -31,7 +31,7 @@
 
 <div class="row">
 <form class="form-horizontal" name="EinstellungenAdresseForm" role="form" ng-controller="EinstellungenAdresseCtrl">
-  <div class="form-group">
+  <div class="form-group" ng-class="{'has-error': EinstellungenAdresseForm.art.$invalid, 'has-success': !EinstellungenAdresseForm.art.$invalid}">
     <label class="col-md-2 control-label" for="art">{{metadaten.art.name}}</label>
     <div class="col-md-10">
       <select class="form-control" name="art" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte" ng-required="true">
@@ -45,7 +45,7 @@ Invalid: {{EinstellungenAdresseForm.art.$invalid}}
 Required: {{EinstellungenAdresseForm.art.$error.required}}</pre-->
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" ng-class="{'has-error': EinstellungenAdresseForm.zaehlernr.$dirty && EinstellungenAdresseForm.zaehlernr.$invalid, 'has-success': EinstellungenAdresseForm.zaehlernr.$dirty && !EinstellungenAdresseForm.zaehlernr.$invalid}">
     <label class="col-md-2 control-label" for="nr">Zählernummer</label>
     <div class="col-md-10">
       <input name="zaehlernr" type="text" class="form-control" ng-model="zaehler.nr" ng-required="true"/>
@@ -58,7 +58,7 @@ Invalid: {{EinstellungenAdresseForm.zaehlernr.$invalid}}
 Required: {{EinstellungenAdresseForm.zaehlernr.$error.required}}</pre-->
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" ng-class="{'has-error': EinstellungenAdresseForm.typ.$invalid, 'has-success': !EinstellungenAdresseForm.typ.$invalid}">
     <label class="col-md-2 control-label" for="typ">{{metadaten.typ.name}}</label>
     <div class="col-md-10">
       <select name="typ" class="form-control" ng-model="zaehler.typ" ng-options="t.art for t in metadaten.typ.werte" ng-required="true">
