@@ -6,8 +6,8 @@
 
 <form class="form-horizontal" name="form" role="form" ng-controller="ErfassungCtrl">
   <div class="row">
-    <div class="form-group" ng-repeat="z in immobilie.zaehlers">
-      <ng-form name="formgroup">
+    <ng-form name="formgroup"  ng-repeat="z in immobilie.zaehlers">
+      <div class="form-group" ng-class="{'has-error': formgroup.zaehlerstand.$invalid, 'has-success': formgroup.zaehlerstand.$dirty && !formgroup.zaehlerstand.$invalid}">
         <label class="col-md-4 control-label" for="{{z.id}}">{{z.art.art}} {{z.nr}} ({{z.typ.art}})<br>Letzter Stand: {{z.aktuellerZaehlerstand}} {{z.art.einheit}}</label>
         <div class="col-md-8">
           <input id="{{z.id}}" name="zaehlerstand" type="text" class="form-control" placeholder="{{z.art.einheit}}" ng-model="z.zaehlerstand" ng-required min-value="{{z.aktuellerZaehlerstand}}"/>
@@ -18,8 +18,8 @@
             <span ng-show="formgroup.zaehlerstand.$error.minValue">Bitte geben sie mindestens {{z.aktuellerZaehlerstand}} ein.</span>
           </span>
         </div>
-      </ng-form>
-    </div>
+      </div>
+    </ng-form>
   </div>
   <div class="row">
     <div class="form-group">
