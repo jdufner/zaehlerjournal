@@ -15,15 +15,38 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
   }])
   .controller('EinstellungenAdresseCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', 'Konstanten',
     function($scope, $routeParams, Zaehlerjournal, Konstanten) {
-    $scope.metadaten = Konstanten.query();
+    //console.log('init EinstellungenAdresseCtrl');
+    //$scope.metadaten = Zaehlerjournal.getKonstanten();
+    $scope.metadaten = Zaehlerjournal.getMetadaten();
+    //console.dir($scope.metadaten);
     $scope.adresse = $routeParams.adresse;
     $scope.immobilien = Zaehlerjournal.getImmobilien();
     $scope.immobilie = Zaehlerjournal.findImmobilieByAdresse($scope.adresse);
+    //console.dir($scope.immobilie);
     $scope.saveImmobilie = function() {
+      //console.log("saveImmobilie")
       //console.dir($scope.zaehler);
-      Zaehlerjournal.addZaehler($scope.adresse, $scope.zaehler);
+      //console.dir($scope.immobilie);
+      if (angular.isUndefined($scope.immobilie.zaehlers)) {
+        $scope.immobilie.zaehlers = new Array();
+      }
+      $scope.zaehler.id = $scope.immobilie.zaehlers.length;
+      $scope.immobilie.zaehlers.push($scope.zaehler);
+      //Zaehlerjournal.addZaehler($scope.adresse, angular.copy($scope.zaehler));
       $scope.zaehler = null;
+      //EinstellungenAdresseForm.reset();
       $scope.EinstellungenAdresseForm.$setPristine();
+    };
+    $scope.edit = function(zaehlerId) {
+      //console.log("edit: " + zaehlerId + " string=" + angular.isString(zaehlerId));
+      for (var i = 0; i < $scope.immobilie.zaehlers.length; i++) {
+        //console.dir($scope.immobilie.zaehlers[i]);
+        if ($scope.immobilie.zaehlers[i].id === zaehlerId) {
+          $scope.zaehler = $scope.immobilie.zaehlers[i];
+        };
+      };
+      console.log("Zähler gefunden? " + angular.toJson($scope.zaehler));
+      //console.dir($scope.zaehler);
     };
   }])
   .controller('ErfassungCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', 'persistanceService',

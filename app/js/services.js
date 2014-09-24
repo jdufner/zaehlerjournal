@@ -5,13 +5,12 @@
 // Demonstrate how to register services
 var zaehlerjournalServices = angular.module('zaehlerjournal.services', ['ngResource']);
 
-// In this case it is a simple value service.
-zaehlerjournalServices.value('version', '0.1');
-
 //
-zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
-  function($resource) {
+zaehlerjournalServices.factory('Zaehlerjournal', ['$resource', '$http',
+  function($resource, $http) {
     var immobilien = [];
+    var konstanten = null;
+    var metadaten = null;
     function getImmobilien() {
       return immobilien;
     };
@@ -39,7 +38,7 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
       zaehler.zaehlerstaende = new Array();
       zaehler.id = immobilie.zaehlers.length;
       zaehler.aktuellerZaehlerstand = 0.0;
-      immobilie.zaehlers.push(angular.copy(zaehler));
+      immobilie.zaehlers.push(zaehler);
       //console.dir(immobilie);
     };
     function addZaehlerstand(immobilie, zaehlers) {
@@ -61,12 +60,65 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource',
         zaehlers[i].aktuellerZaehlerstand = zaehlers[i].zaehlerstand;
       };
     };
+    function getKonstanten() {
+      if (konstanten == null) {
+        konstanten = {
+          "art": {
+              "name": "Art",
+              "werte": [{
+                "id": 0,
+                "art": "Fernwärme",
+                "einheit": "kWh"
+              }, {
+                "id": 1,
+                "art": "Gas",
+                "einheit": "m³"
+              }, {
+                "id": 2,
+                "art": "Solarstrom",
+                "einheit": "kWh"
+              }, {
+                "id": 3,
+                "art": "Strom",
+                "einheit": "kWh"
+              }, {
+                "id": 4,
+                "art": "Wasser",
+                "einheit": "m³"
+              }]
+          },
+          "typ": {
+              "name": "Typ",
+              "werte": [{
+                "id": 0,
+                "art": "Hauptzähler"
+              }, {
+                "id": 1,
+                "art": "Nebenzähler"
+              }]
+          }
+        };
+      };
+      return konstanten;
+    };
+    function getMetadaten() {
+      if (metadaten === null) {
+        $http.get('zaehler/konstanten.json').then(
+        function(response) {
+          //console.dir(response.data);
+          metadaten = response.data;
+        });
+      };
+      return metadaten;
+    };
     return {
       addImmobilie: addImmobilie,
       addZaehler: addZaehler,
       addZaehlerstand: addZaehlerstand,
       findImmobilieByAdresse: findImmobilieByAdresse,
-      getImmobilien: getImmobilien
+      getImmobilien: getImmobilien,
+      getKonstanten: getKonstanten,
+      getMetadaten: getMetadaten
     }
   }
 ]);

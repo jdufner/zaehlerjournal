@@ -10,10 +10,11 @@
   </div>
 </div-->
 
-<div class="row">
-  <div class="col-md-12">
-    <p ng-repeat="z in immobilie.zaehlers">{{z.art.art}} {{z.nr}} ({{z.typ.art}})
-      <!--button type="button" class="btn btn-default btn-md">
+<!--div class="row">
+  <div class="col-md-offset-2 col-md-10" ng-repeat="z in immobilie.zaehlers">
+    <strong>{{z.art.art}} {{z.nr}} ({{z.typ.art}})</strong>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default btn-md">
         <span class="glyphicon glyphicon-edit"></span> Edit
       </button>
       <button type="button" class="btn btn-default btn-md">
@@ -24,8 +25,25 @@
       </button>
       <button type="button" class="btn btn-default btn-md">
         <span class="glyphicon glyphicon-chevron-down"></span> Down
-      </button-->
-    </p>
+      </button>
+    </div>
+  </div>
+</div-->
+
+<div class="row" ng-repeat="z in immobilie.zaehlers">
+  <div class="col-md-12">
+    <div class="input-group">
+      <input type="text" class="form-control" readonly value="{{z.art.art}} {{z.nr}} ({{z.typ.art}})" />
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+          <li><a data="{{z.id}}" ng-click="edit(z.id);"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-remove"></span> Remove</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-chevron-up"></span> Up</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-chevron-down"></span> Down</a></li>
+        </ul>
+      </div>
+    </div><br/>
   </div>
 </div>
 
@@ -40,6 +58,7 @@
         Validierung fehlgeschlagen.
         <span ng-show="EinstellungenAdresseForm.art.$error.required">Bitte wählen Sie eine Zählerart aus.</span>
       </span>
+      <pre>Art: {{zaehler.art}}</pre>
       <!--pre>Dirty: {{EinstellungenAdresseForm.art.$dirty}}
 Invalid: {{EinstellungenAdresseForm.art.$invalid}}
 Required: {{EinstellungenAdresseForm.art.$error.required}}</pre-->
@@ -53,6 +72,7 @@ Required: {{EinstellungenAdresseForm.art.$error.required}}</pre-->
         Validierung fehlgeschlagen.
         <span ng-show="EinstellungenAdresseForm.zaehlernr.$error.required">Bitte geben sie eine Zählernummer ein.</span>
       </span>
+      <pre>Nr: {{zaehler.nr}}</pre>
       <!--pre>Dirty: {{EinstellungenAdresseForm.zaehlernr.$dirty}}
 Invalid: {{EinstellungenAdresseForm.zaehlernr.$invalid}}
 Required: {{EinstellungenAdresseForm.zaehlernr.$error.required}}</pre-->
@@ -67,6 +87,7 @@ Required: {{EinstellungenAdresseForm.zaehlernr.$error.required}}</pre-->
         Validierung fehlgeschlagen.
         <span ng-show="EinstellungenAdresseForm.typ.$error.required">Bitte wählen sie einen Zählertyp aus.</span>
       </span>
+      <pre>Typ: {{zaehler.typ}}</pre>
       <!--pre>Dirty: {{EinstellungenAdresseForm.typ.$dirty}}
 Invalid: {{EinstellungenAdresseForm.typ.$invalid}}
 Required: {{EinstellungenAdresseForm.typ.$error.required}}</pre-->
@@ -75,6 +96,11 @@ Required: {{EinstellungenAdresseForm.typ.$error.required}}</pre-->
   <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
       <button type="submit" class="btn btn-default" ng-disabled="EinstellungenAdresseForm.art.$invalid || EinstellungenAdresseForm.zaehlernr.$invalid || EinstellungenAdresseForm.typ.$invalid" ng-click="saveImmobilie()">Speichern</button>
+      <pre>adresse = {{adresse}}</pre>
+      <pre>immobilie = {{immobilie}}</pre>
+      <pre>immobilien = {{immobilien}}</pre>
+      <pre>metadaten = {{metadaten}}</pre>
+      <pre>zaehler = {{zaehler}}</pre>
     </div>
   </div>
 </form>
