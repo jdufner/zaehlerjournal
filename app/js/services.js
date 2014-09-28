@@ -51,30 +51,15 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$http', '$q',
      * werden die Metadaten asynchron geladen und NULL zurückgeliefert.
      */
     function getMetadaten() {
-      console.log('zaehlerjournalServices.getMetadaten');
-//      if (metadaten === null) {
-//        $http.get('zaehler/konstanten.json')
-//          .then(function(response) {
-//            //console.dir(response.data);
-//            metadaten = response.data;
-//          });
-//      };
+      //console.log('zaehlerjournalServices.getMetadaten');
       return metadaten;
     };
     function loadMetadaten() {
-      console.log('zaehlerjournalServices.loadMetadaten');
-      var deferred = $q.defer();
-      $http.get('zaehler/konstanten.json')
-        .success(function(data, status, headers, config){
-          deferred.resolve(data);
-        })
-        .error(function(data, status, headers, config){
-          deferred.reject(status);
-        });
-      return deferred.promise;
+      //console.log('zaehlerjournalServices.loadMetadaten');
+      return $http.get('zaehler/konstanten.json');
     };
     function setMetadaten(daten) {
-      console.log('zaehlerjournalServices.setMetadaten');
+      //console.log('zaehlerjournalServices.setMetadaten');
       metadaten = daten;
     };
     return {

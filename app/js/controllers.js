@@ -20,9 +20,9 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       var promise = Zaehlerjournal.loadMetadaten();
       //console.dir(promise);
       promise.then(
-        function(data){
-          //console.dir(data);
-          $scope.metadaten = data;
+        function(response){
+          //console.dir(response.data);
+          $scope.metadaten = response.data;
           Zaehlerjournal.setMetadaten($scope.metadaten);
         },
         function(reason){
