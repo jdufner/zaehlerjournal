@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>{{adresse}}</h1>
+  </div>
+</div>
+
+<ul ng-repeat="z in zaehlers">
+  <li>ID: {{z.id}}, Nr: {{z.nr}}<button ng-data="{{z}}" ng-click="edit(z)">Edit</button></li>
+</ul>
+
+<form name="EinstellungenZaehlerForm">
+  <fieldset>
+    <legend>Zählerformular</legend>
+    <p>
+      <label for="nr">Zählernummer</label>
+      <input id="nr" name="nr" type="text" ng-model="zaehler.nr">
+    </p>
+    <p>
+      <label for="art">Art</label>
+      <select id="art" name="art" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte"></select>
+    </p>
+    <p>
+      <button ng-click="save()">Speichern</button>
+    </p>
+  </fieldset>
+</form>
+
+<hr>
+
+<ul ng-repeat="art in metadaten.art.werte">
+  <li>{{art.art}}</li>
+</ul>
+
+<pre>metadaten = {{metadaten}}</pre>

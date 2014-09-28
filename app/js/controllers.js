@@ -88,6 +88,42 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       //console.dir($scope.zaehler);
     };
   }])
+  .controller('EinstellungenZaehlerCtrl', ['$scope', '$routeParams', 'Zaehlerjournal',
+    function($scope, $routeParams, Zaehlerjournal) {
+    console.log('init EinstellungenZaehlerCtrl');
+    $scope.adresse = $routeParams.adresse;
+    $scope.metadaten = Zaehlerjournal.getMetadaten();
+    $scope.zaehlers = new Array();
+    if ($scope.metadaten === null) {
+      var promise = Zaehlerjournal.loadMetadaten();
+      //console.dir(promise);
+      promise.then(
+        function(response){
+          //console.dir(response.data);
+          $scope.metadaten = response.data;
+          Zaehlerjournal.setMetadaten($scope.metadaten);
+        },
+        function(reason){
+          console.dir(reason);
+        }
+      );
+    };
+    $scope.save = function() {
+      console.dir($scope.zaehler);
+      if (angular.isDefined($scope.zaehler.id)) {
+        
+      } else {
+        $scope.zaehler.id = $scope.zaehlers.length + 1;
+        $scope.zaehlers.push($scope.zaehler);
+      }
+      $scope.zaehler = null;
+      $scope.EinstellungenZaehlerForm.$setPristine();
+    };
+    $scope.edit = function(zaehler) {
+      console.dir(zaehler);
+      $scope.zaehler = zaehler;
+    };
+  }])
   .controller('ErfassungCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', 'persistanceService',
     function($scope, $routeParams, Zaehlerjournal, persistanceService){
     //console.log('init ErfassungCtrl');
