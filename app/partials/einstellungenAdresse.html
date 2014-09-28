@@ -30,20 +30,20 @@
   </div>
 </div-->
 
-<div class="row" ng-repeat="z in immobilie.zaehlers">
+<div class="row" ng-repeat="z in zaehlers">
   <div class="col-md-12">
     <div class="input-group">
       <input type="text" class="form-control" readonly value="{{z.art.art}} {{z.nr}} ({{z.typ.art}})" />
       <div class="input-group-btn">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
         <ul class="dropdown-menu dropdown-menu-right" role="menu">
-          <li><a data="{{z.id}}" ng-click="edit(z.id);"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-remove"></span> Remove</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-chevron-up"></span> Up</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-chevron-down"></span> Down</a></li>
+          <li><a data="{{z}}" ng-click="edit(z);"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
+          <li><a data="{{z}}" ng-click="remove(z);"><span class="glyphicon glyphicon-remove"></span> Remove</a></li>
+          <li><a data="{{z}}" ng-click="up(z);"><span class="glyphicon glyphicon-chevron-up"></span> Up</a></li>
+          <li><a data="{{z}}" ng-click="down(z);"><span class="glyphicon glyphicon-chevron-down"></span> Down</a></li>
         </ul>
       </div>
-    </div><br/>
+    </div><br>
   </div>
 </div>
 
@@ -52,7 +52,7 @@
   <div class="form-group" ng-class="{'has-error': EinstellungenAdresseForm.art.$dirty && EinstellungenAdresseForm.art.$invalid, 'has-success': !EinstellungenAdresseForm.art.$invalid}">
     <label class="col-md-2 control-label" for="art">{{metadaten.art.name}}</label>
     <div class="col-md-10">
-      <select class="form-control" name="art" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte" ng-required="true">
+      <select id="art" class="form-control" name="art" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte" ng-required="true">
       </select>
       <span ng-show="EinstellungenAdresseForm.art.$dirty && EinstellungenAdresseForm.art.$invalid">
         Validierung fehlgeschlagen.
@@ -67,7 +67,7 @@ Required: {{EinstellungenAdresseForm.art.$error.required}}</pre-->
   <div class="form-group" ng-class="{'has-error': EinstellungenAdresseForm.zaehlernr.$dirty && EinstellungenAdresseForm.zaehlernr.$invalid, 'has-success': !EinstellungenAdresseForm.zaehlernr.$invalid}">
     <label class="col-md-2 control-label" for="nr">Zählernummer</label>
     <div class="col-md-10">
-      <input name="zaehlernr" type="text" class="form-control" ng-model="zaehler.nr" ng-required="true"/>
+      <input id="nr" name="zaehlernr" type="text" class="form-control" ng-model="zaehler.nr" ng-required="true"/>
       <span ng-show="EinstellungenAdresseForm.zaehlernr.$dirty && EinstellungenAdresseForm.zaehlernr.$invalid">
         Validierung fehlgeschlagen.
         <span ng-show="EinstellungenAdresseForm.zaehlernr.$error.required">Bitte geben sie eine Zählernummer ein.</span>
@@ -81,7 +81,7 @@ Required: {{EinstellungenAdresseForm.zaehlernr.$error.required}}</pre-->
   <div class="form-group" ng-class="{'has-error': EinstellungenAdresseForm.typ.$dirty && EinstellungenAdresseForm.typ.$invalid, 'has-success': !EinstellungenAdresseForm.typ.$invalid}">
     <label class="col-md-2 control-label" for="typ">{{metadaten.typ.name}}</label>
     <div class="col-md-10">
-      <select name="typ" class="form-control" ng-model="zaehler.typ" ng-options="t.art for t in metadaten.typ.werte" ng-required="true">
+      <select id="typ" name="typ" class="form-control" ng-model="zaehler.typ" ng-options="t.art for t in metadaten.typ.werte" ng-required="true">
       </select>
       <span ng-show="EinstellungenAdresseForm.typ.$dirty && EinstellungenAdresseForm.typ.$invalid">
         Validierung fehlgeschlagen.
@@ -95,10 +95,10 @@ Required: {{EinstellungenAdresseForm.typ.$error.required}}</pre-->
   </div>
   <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-      <button type="submit" class="btn btn-default" ng-disabled="EinstellungenAdresseForm.art.$invalid || EinstellungenAdresseForm.zaehlernr.$invalid || EinstellungenAdresseForm.typ.$invalid" ng-click="saveImmobilie()">Speichern</button>
-      <pre>adresse = {{adresse}}</pre>
+      <button type="submit" class="btn btn-default" ng-disabled="EinstellungenAdresseForm.art.$invalid || EinstellungenAdresseForm.zaehlernr.$invalid || EinstellungenAdresseForm.typ.$invalid" ng-click="save()">Speichern</button>
+      <!--pre>adresse = {{adresse}}</pre-->
       <pre>immobilie = {{immobilie}}</pre>
-      <pre>immobilien = {{immobilien}}</pre>
+      <!--pre>immobilien = {{immobilien}}</pre-->
       <pre>metadaten = {{metadaten}}</pre>
       <pre>zaehler = {{zaehler}}</pre>
     </div>

@@ -6,40 +6,26 @@
 var zaehlerjournalServices = angular.module('zaehlerjournal.services', ['ngResource']);
 
 //
-zaehlerjournalServices.factory('Zaehlerjournal', ['$resource', '$http',
-  function($resource, $http) {
+zaehlerjournalServices.factory('Zaehlerjournal', ['$http', '$q', 
+  function($http, $q) {
     var immobilien = [];
-    var konstanten = null;
     var metadaten = null;
     function getImmobilien() {
       return immobilien;
     };
     function addImmobilie(adresse) {
-      //console.dir(adresse);
-      immobilien.push({'id': immobilien.length, 'adresse': adresse});
-      //console.dir(immobilien);
+      immobilien.push({'id': immobilien.length + 1, 'adresse': adresse, zaehlers: []});
     };
     function findImmobilieByAdresse(adresse) {
+      if (angular.isUndefined(immobilien) || immobilien === null) {
+        return null;
+      };
       for (var i = 0; i < immobilien.length; i++) {
-        if (immobilien[i].adresse === adresse) {
-          //console.log('i=' + i + ', ' + immobilien[i]);
+        if (angular.isDefined(immobilien[i].adresse) && immobilien[i].adresse === adresse) {
           return immobilien[i];
-        }
+        };
       };
       return null;
-    };
-    function addZaehler(adresse, zaehler) {
-      //console.log(adresse + ', ' + zaehler);
-      var immobilie = findImmobilieByAdresse(adresse);
-      //console.dir(immobilie);
-      if (angular.isUndefined(immobilie.zaehlers)) {
-        immobilie.zaehlers = new Array();
-      };
-      zaehler.zaehlerstaende = new Array();
-      zaehler.id = immobilie.zaehlers.length;
-      zaehler.aktuellerZaehlerstand = 0.0;
-      immobilie.zaehlers.push(zaehler);
-      //console.dir(immobilie);
     };
     function addZaehlerstand(immobilie, zaehlers) {
       //console.log(zaehlers);
@@ -48,7 +34,7 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource', '$http',
           zaehlers[i].zaehlerstaende = new Array();
         };
         //console.log(zaehlers[i].zaehlerstand);
-        if (angular.isUndefined(zaehlers[i].zaehlerstand) || zaehlers[i].zaehlerstand == null) {
+        if (angular.isUndefined(zaehlers[i].zaehlerstand) || zaehlers[i].zaehlerstand === null) {
           continue;
         }
         var d = new Date();
@@ -60,78 +46,46 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$resource', '$http',
         zaehlers[i].aktuellerZaehlerstand = zaehlers[i].zaehlerstand;
       };
     };
-    function getKonstanten() {
-      if (konstanten == null) {
-        konstanten = {
-          "art": {
-              "name": "Art",
-              "werte": [{
-                "id": 0,
-                "art": "Fernwärme",
-                "einheit": "kWh"
-              }, {
-                "id": 1,
-                "art": "Gas",
-                "einheit": "m³"
-              }, {
-                "id": 2,
-                "art": "Solarstrom",
-                "einheit": "kWh"
-              }, {
-                "id": 3,
-                "art": "Strom",
-                "einheit": "kWh"
-              }, {
-                "id": 4,
-                "art": "Wasser",
-                "einheit": "m³"
-              }]
-          },
-          "typ": {
-              "name": "Typ",
-              "werte": [{
-                "id": 0,
-                "art": "Hauptzähler"
-              }, {
-                "id": 1,
-                "art": "Nebenzähler"
-              }]
-          }
-        };
-      };
-      return konstanten;
-    };
+    /**
+     * Liefert die Metadaten, falls bereits geladen synchron zurück, ansonsten
+     * werden die Metadaten asynchron geladen und NULL zurückgeliefert.
+     */
     function getMetadaten() {
-      if (metadaten === null) {
-        $http.get('zaehler/konstanten.json').then(
-        function(response) {
-          //console.dir(response.data);
-          metadaten = response.data;
-        });
-      };
+      console.log('zaehlerjournalServices.getMetadaten');
+//      if (metadaten === null) {
+//        $http.get('zaehler/konstanten.json')
+//          .then(function(response) {
+//            //console.dir(response.data);
+//            metadaten = response.data;
+//          });
+//      };
       return metadaten;
+    };
+    function loadMetadaten() {
+      console.log('zaehlerjournalServices.loadMetadaten');
+      var deferred = $q.defer();
+      $http.get('zaehler/konstanten.json')
+        .success(function(data, status, headers, config){
+          deferred.resolve(data);
+        })
+        .error(function(data, status, headers, config){
+          deferred.reject(status);
+        });
+      return deferred.promise;
+    };
+    function setMetadaten(daten) {
+      console.log('zaehlerjournalServices.setMetadaten');
+      metadaten = daten;
     };
     return {
       addImmobilie: addImmobilie,
-      addZaehler: addZaehler,
       addZaehlerstand: addZaehlerstand,
       findImmobilieByAdresse: findImmobilieByAdresse,
       getImmobilien: getImmobilien,
-      getKonstanten: getKonstanten,
-      getMetadaten: getMetadaten
-    }
-  }
-]);
-
-zaehlerjournalServices.factory('Konstanten', ['$resource',
-  function($resource) {
-    return $resource('zaehler/konstanten.json', {}, {
-      query: {
-        method: 'GET',
-        params: {},
-        isArray: false
-      }
-    });
+      getMetadaten: getMetadaten,
+      loadMetadaten: loadMetadaten,
+      setMetadaten: setMetadaten
+    };
   }
 ]);
 
