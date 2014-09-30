@@ -4,14 +4,22 @@
   </div>
 </div>
 
-<ul ng-repeat="z in zaehlers">
-  <li>ID: {{z.id}}, Nr: {{z.nr}}, Art: {{z.art.art}}, Typ: {{z.typ.art}}
-    <button ng-data="{{z}}" ng-click="edit(z)">Edit</button>
-    <button ng-data="{{z}}" ng-click="remove(z)">Remove</button>
-    <button ng-data="{{z}}" ng-click="up(z)">Up</button>
-    <button ng-data="{{z}}" ng-click="down(z)">Down</button>
-  </li>
-</ul>
+<div class="row" ng-repeat="z in zaehlers">
+  <div class="col-md-12">
+    <div class="input-group">
+      <input type="text" class="form-control" readonly value="{{z.art.art}} {{z.nr}} ({{z.typ.art}})" />
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+          <li><a data="{{z}}" ng-click="edit(z);"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
+          <li><a data="{{z}}" ng-click="remove(z);"><span class="glyphicon glyphicon-remove"></span> Remove</a></li>
+          <li><a data="{{z}}" ng-click="up(z);"><span class="glyphicon glyphicon-chevron-up"></span> Up</a></li>
+          <li><a data="{{z}}" ng-click="down(z);"><span class="glyphicon glyphicon-chevron-down"></span> Down</a></li>
+        </ul>
+      </div>
+    </div><br>
+  </div>
+</div>
 
 <form name="EinstellungenZaehlerForm">
   <fieldset>
@@ -33,12 +41,6 @@
     </p>
   </fieldset>
 </form>
-
-<hr>
-
-<ul ng-repeat="art in metadaten.art.werte">
-  <li>{{art.art}}</li>
-</ul>
 
 <pre>immobilie = {{immobilie}}</pre>
 <pre>metadaten = {{metadaten}}</pre>

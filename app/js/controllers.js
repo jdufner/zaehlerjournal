@@ -112,7 +112,6 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
     $scope.save = function() {
       console.dir($scope.zaehler);
       if (angular.isDefined($scope.zaehler.id)) {
-        
       } else {
         $scope.zaehler.id = $scope.zaehlers.length + 1;
         $scope.zaehlers.push($scope.zaehler);
