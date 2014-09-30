@@ -5,7 +5,12 @@
 </div>
 
 <ul ng-repeat="z in zaehlers">
-  <li>ID: {{z.id}}, Nr: {{z.nr}}<button ng-data="{{z}}" ng-click="edit(z)">Edit</button></li>
+  <li>ID: {{z.id}}, Nr: {{z.nr}}, Art: {{z.art.art}}, Typ: {{z.typ.art}}
+    <button ng-data="{{z}}" ng-click="edit(z)">Edit</button>
+    <button ng-data="{{z}}" ng-click="remove(z)">Remove</button>
+    <button ng-data="{{z}}" ng-click="up(z)">Up</button>
+    <button ng-data="{{z}}" ng-click="down(z)">Down</button>
+  </li>
 </ul>
 
 <form name="EinstellungenZaehlerForm">
@@ -20,6 +25,10 @@
       <select id="art" name="art" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte"></select>
     </p>
     <p>
+      <label for="typ">Typ</label>
+      <select id="typ" name="typ" ng-model="zaehler.typ" ng-options="t.art for t in metadaten.typ.werte"></select>
+    </p>
+    <p>
       <button ng-click="save()">Speichern</button>
     </p>
   </fieldset>
@@ -31,4 +40,6 @@
   <li>{{art.art}}</li>
 </ul>
 
+<pre>immobilie = {{immobilie}}</pre>
 <pre>metadaten = {{metadaten}}</pre>
+<pre>zaehlers = {{zaehlers}}</pre>

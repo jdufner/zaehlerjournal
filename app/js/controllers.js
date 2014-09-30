@@ -93,7 +93,8 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
     console.log('init EinstellungenZaehlerCtrl');
     $scope.adresse = $routeParams.adresse;
     $scope.metadaten = Zaehlerjournal.getMetadaten();
-    $scope.zaehlers = new Array();
+    $scope.immobilie = Zaehlerjournal.findImmobilieByAdresse($scope.adresse);
+    $scope.zaehlers = $scope.immobilie.zaehlers;
     if ($scope.metadaten === null) {
       var promise = Zaehlerjournal.loadMetadaten();
       //console.dir(promise);
@@ -122,6 +123,50 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
     $scope.edit = function(zaehler) {
       console.dir(zaehler);
       $scope.zaehler = zaehler;
+    };
+    $scope.remove = function(zaehler) {
+      console.dir(zaehler);
+      var anzahl = $scope.zaehlers.length;
+      var tmp = new Array();
+      for (var i = 0; i < anzahl; i++) {
+        var z = $scope.zaehlers.pop();
+        if (zaehler !== z) {
+          tmp.push(z);
+        };
+      };
+      for (var i = 0; i < anzahl - 1; i++) {
+        $scope.zaehlers.push(tmp.pop());
+      };
+    };
+    $scope.up = function(zaehler) {
+      console.dir(zaehler);
+      var index;
+      for (var i = 0; i < $scope.zaehlers.length; i++) {
+        if (zaehler === $scope.zaehlers[i]) {
+          index = i;
+        };
+      };
+      if (index === 0) {
+        return;
+      };
+      var tmp = $scope.zaehlers[index - 1];
+      $scope.zaehlers[index - 1] = $scope.zaehlers[index];
+      $scope.zaehlers[index] = tmp;
+    };
+    $scope.down = function(zaehler) {
+      console.dir(zaehler);
+      var index;
+      for (var i = 0; i < $scope.zaehlers.length; i++) {
+        if (zaehler === $scope.zaehlers[i]) {
+          index = i;
+        };
+      };
+      if (index === $scope.zaehlers.length - 1) {
+        return;
+      };
+      var tmp = $scope.zaehlers[index];
+      $scope.zaehlers[index] = $scope.zaehlers[index + 1];
+      $scope.zaehlers[index + 1] = tmp;
     };
   }])
   .controller('ErfassungCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', 'persistanceService',
