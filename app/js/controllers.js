@@ -111,9 +111,15 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
     };
     $scope.save = function() {
       console.dir($scope.zaehler);
+      var maxId = 0;
+      for (var i = 0; i < $scope.zaehlers.length; i++) {
+        if (maxId < $scope.zaehlers[i].id) {
+          maxId = $scope.zaehlers[i].id;
+        }
+      };
       if (angular.isDefined($scope.zaehler.id)) {
       } else {
-        $scope.zaehler.id = $scope.zaehlers.length + 1;
+        $scope.zaehler.id = maxId + 1;
         $scope.zaehlers.push($scope.zaehler);
       }
       $scope.zaehler = null;
