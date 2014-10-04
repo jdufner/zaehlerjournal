@@ -6,6 +6,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
     //console.log('init EinstellungenCtrl');
     $scope.immobilien = Zaehlerjournal.getImmobilien();
     $scope.createAdresse = function() {
+      //console.log('EinstellungenCtrl.createAdresse');
       Zaehlerjournal.addImmobilie($scope.adresse);
       $scope.adresse = null;
       $scope.EinstellungenForm.$setPristine();
@@ -115,7 +116,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       for (var i = 0; i < $scope.zaehlers.length; i++) {
         if (maxId < $scope.zaehlers[i].id) {
           maxId = $scope.zaehlers[i].id;
-        }
+        };
       };
       if (angular.isDefined($scope.zaehler.id)) {
       } else {

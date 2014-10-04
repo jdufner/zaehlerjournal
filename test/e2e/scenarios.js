@@ -2,7 +2,7 @@
 
 /* https://github.com/angular/protractor/blob/master/docs/getting-started.md */
 
-describe('Zählerjournal', function() {
+describe('ZÃ¤hlerjournal', function() {
 
   browser.get('index.html');
 
