@@ -13,7 +13,7 @@ describe('controllers', function(){
   beforeEach(module('zaehlerjournal.controllers'));
   beforeEach(module('zaehlerjournal.services'));
 
-  it('should exists', inject(function($controller) {
+  it('UebersichtCtrl should exists', inject(function($controller) {
     //spec body
     var uebersichtCtrl = $controller('UebersichtCtrl', { $scope: {} });
     expect(uebersichtCtrl).toBeDefined();
@@ -30,7 +30,7 @@ describe('controllers', function(){
     });
   });
 
-  it('should exists', inject(function($controller) {
+  it('EinstellungenCtrl should exists', inject(function($controller) {
     //spec body
     var detailsCtrl = $controller('EinstellungenCtrl', {$scope: {}});
     expect(detailsCtrl).toBeDefined();
@@ -60,11 +60,60 @@ describe('controllers', function(){
       expect(scope.immobilien).toEqualData([]);
       expect(Zaehlerjournal.getImmobilien).toHaveBeenCalled();
     });
-    it('should create "adresse" and empty adresse in scope', function() {
-      scope.adresse = 'Kaiserstr. 1, Frankfurt';
+    it('should create "adresse" in immobilien and empty adresse in scope', function() {
+      var adresse = 'Kaiserstr. 1, Frankfurt';
+      scope.adresse = adresse;
       scope.createAdresse();
       expect(scope.adresse).toEqual(null);
-      expect(Zaehlerjournal.addImmobilie).toHaveBeenCalled();
+      expect(Zaehlerjournal.addImmobilie).toHaveBeenCalledWith(adresse);
+    });
+  });
+
+  it('EinstellungenZaehlerCtrl should exists', inject(function($controller) {
+    //spec body
+    var einstellungenZaehlerCtrl = $controller('EinstellungenZaehlerCtrl', { 
+      $scope: {}
+      , $routeParams: {}
+      , Zaehlerjournal: { 
+        getMetadaten: function() {}
+        , findImmobilieByAdresse: function() {
+          return { zaehlers: [] };
+        }
+      }
+    });
+    expect(einstellungenZaehlerCtrl).toBeDefined();
+  }));
+
+  describe('EinstellungenZaehlerCtrl', function() {
+    var scope, ctrl, routeParams, Zaehlerjournal;
+    beforeEach(module('zaehlerjournal', function($provide) {
+      Zaehlerjournal = {
+        addImmobilie: function() {}
+        , findImmobilieByAdresse: function() {}
+        , getImmobilien: function() {}
+        , getMetadaten: function() {}
+      };
+      spyOn(Zaehlerjournal, 'addImmobilie').andReturn({});
+      spyOn(Zaehlerjournal, 'findImmobilieByAdresse').andReturn({});
+      spyOn(Zaehlerjournal, 'getImmobilien').andReturn([]);
+      spyOn(Zaehlerjournal, 'getMetadaten').andReturn({});
+      $provide.value('Zaehlerjournal', Zaehlerjournal);
+      routeParams = {
+        adresse: 'Strasse Hausnummer Ort'
+      };
+      $provide.value('$routeParams', routeParams);
+    }));
+    beforeEach(inject(function($rootScope, $controller, $routeParams, Zaehlerjournal) {
+      scope = $rootScope.$new();
+      ctrl = $controller('EinstellungenZaehlerCtrl', { 
+        $scope: scope
+        , $routeParams: $routeParams
+        , Zaehlerjournal: Zaehlerjournal
+      });
+    }));
+    it('should adresse from $routeParams and set in model', function() {
+      console.log(scope.adresse);
+      expect(scope.adresse).toEqualData('Strasse Hausnummer Ort');
     });
   });
 
