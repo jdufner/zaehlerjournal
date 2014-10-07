@@ -91,7 +91,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
   }])
   .controller('EinstellungenZaehlerCtrl', ['$scope', '$routeParams', 'Zaehlerjournal',
     function($scope, $routeParams, Zaehlerjournal) {
-    console.log('init EinstellungenZaehlerCtrl');
+    //console.log('init EinstellungenZaehlerCtrl');
     $scope.adresse = $routeParams.adresse;
     $scope.metadaten = Zaehlerjournal.getMetadaten();
     $scope.immobilie = Zaehlerjournal.findImmobilieByAdresse($scope.adresse);

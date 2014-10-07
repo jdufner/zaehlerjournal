@@ -94,9 +94,9 @@ describe('controllers', function(){
         , getMetadaten: function() {}
       };
       spyOn(Zaehlerjournal, 'addImmobilie').andReturn({});
-      spyOn(Zaehlerjournal, 'findImmobilieByAdresse').andReturn({});
+      spyOn(Zaehlerjournal, 'findImmobilieByAdresse').andReturn({ adresse: 'Strasse Hausnummer Ort', aktuellerZaehlerstand: 123});
       spyOn(Zaehlerjournal, 'getImmobilien').andReturn([]);
-      spyOn(Zaehlerjournal, 'getMetadaten').andReturn({});
+      spyOn(Zaehlerjournal, 'getMetadaten').andReturn({ art: ['Gas', 'Strom', 'Wasser']});
       $provide.value('Zaehlerjournal', Zaehlerjournal);
       routeParams = {
         adresse: 'Strasse Hausnummer Ort'
@@ -111,9 +111,15 @@ describe('controllers', function(){
         , Zaehlerjournal: Zaehlerjournal
       });
     }));
-    it('should adresse from $routeParams and set in model', function() {
-      console.log(scope.adresse);
+    it('should read adresse from $routeParams and set it in model', function() {
       expect(scope.adresse).toEqualData('Strasse Hausnummer Ort');
+    });
+    it('should read metadaten from Zaehlerjournal and set it in model', function() {
+      expect(scope.metadaten.art[1]).toEqualData('Strom');
+    });
+    it('should read immobilie by adresse from Zaehlerjournal and set it in model', function() {
+      expect(scope.immobilie.adresse).toEqualData('Strasse Hausnummer Ort');
+      expect(scope.immobilie.aktuellerZaehlerstand).toEqualData(123);
     });
   });
 

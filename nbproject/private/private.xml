@@ -5,6 +5,7 @@
         <group>
             <file>file:/D:/javascript/zaehlerjournal/app/js/app.js</file>
             <file>file:/D:/javascript/zaehlerjournal/app/partials/einstellungenZaehler.html</file>
+            <file>file:/D:/javascript/zaehlerjournal/app/zaehler/konstanten.json</file>
             <file>file:/D:/javascript/zaehlerjournal/test/unit/controllersSpec.js</file>
             <file>file:/D:/javascript/zaehlerjournal/app/js/controllers.js</file>
         </group>
