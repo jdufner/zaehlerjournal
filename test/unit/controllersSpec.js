@@ -121,6 +121,14 @@ describe('controllers', function(){
       expect(scope.immobilie.adresse).toEqualData('Strasse Hausnummer Ort');
       expect(scope.immobilie.aktuellerZaehlerstand).toEqualData(123);
     });
+    it('should save a zaehler', function() {
+    });
+    it('should remote a zaehler', function() {
+    });
+    it('should move up a zaehler', function() {
+    });
+    it('should move down a zaehler', function() {
+    });
   });
 
 //  it('should exists', inject(function($controller) {
