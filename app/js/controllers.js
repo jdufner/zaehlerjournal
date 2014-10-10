@@ -111,7 +111,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       );
     };
     $scope.save = function() {
-      console.dir($scope.zaehler);
+      //console.dir($scope.zaehler);
       var maxId = 0;
       for (var i = 0; i < $scope.zaehlers.length; i++) {
         if (maxId < $scope.zaehlers[i].id) {
@@ -127,11 +127,11 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       $scope.EinstellungenZaehlerForm.$setPristine();
     };
     $scope.edit = function(zaehler) {
-      console.dir(zaehler);
+      //console.dir(zaehler);
       $scope.zaehler = zaehler;
     };
     $scope.remove = function(zaehler) {
-      console.dir(zaehler);
+      //console.dir(zaehler);
       var anzahl = $scope.zaehlers.length;
       var tmp = new Array();
       for (var i = 0; i < anzahl; i++) {
