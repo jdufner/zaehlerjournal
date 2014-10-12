@@ -214,6 +214,6 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
   }])
   .controller('UebersichtCtrl', ['$scope', 'Zaehlerjournal',
     function($scope, Zaehlerjournal) {
-    $scope.immobilien = Zaehlerjournal.getImmobilien();
+      $scope.immobilien = Zaehlerjournal.getImmobilien();
   }])
 ;

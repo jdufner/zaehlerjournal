@@ -182,7 +182,7 @@ describe('controllers', function(){
     });
   });
 
-  it('ErfassungController should exists', inject(function($controller) {
+  it('ErfassungCtrl should exists', inject(function($controller) {
     //spec body
     var erfassungCtrl = $controller('ErfassungCtrl', { $scope: {}, $routeParams: {}});
     expect(erfassungCtrl).toBeDefined();
@@ -246,4 +246,30 @@ describe('controllers', function(){
     });
   });
 
+  it('UebersichtCtlr should exists', inject(function($controller) {
+    //spec body
+    var uebersichtCtrl = $controller('UebersichtCtrl', {$scope: {}, Zaehlerjournal: {getImmobilien: function(){}}});
+    expect(uebersichtCtrl).toBeDefined();
+  }));
+
+  describe('UebersichtCtrl', function() {
+    var scope, ctrl, Zaehlerjournal;
+    beforeEach(module('zaehlerjournal', function() {
+      Zaehlerjournal = {
+        getImmobilien: function() {}
+      };
+      spyOn(Zaehlerjournal, 'getImmobilien').andReturn([{adresse: 'Strasse Hausnummer Ort'}]);
+    }));
+    beforeEach(inject(function($rootScope, $controller) {
+      scope = $rootScope.$new();
+      ctrl = $controller('UebersichtCtrl', {$scope: scope, Zaehlerjournal: Zaehlerjournal});
+    }));
+    it('should display all immobilien', function() {
+      expect(ctrl).toBeDefined();
+      expect(Zaehlerjournal.getImmobilien).toHaveBeenCalled();
+      expect(scope.immobilien.length).toBe(1);
+      expect(scope.immobilien[0].adresse).toBe('Strasse Hausnummer Ort');
+    });
+  });
+  
 });
