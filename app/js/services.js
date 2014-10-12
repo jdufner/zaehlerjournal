@@ -27,7 +27,7 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$http', '$q',
       };
       return null;
     };
-    function addZaehlerstand(immobilie, zaehlers) {
+    function addZaehlerstand(zaehlers) {
       //console.log(zaehlers);
       for (var i = 0; i < zaehlers.length; i++) {
         if (angular.isUndefined(zaehlers[i].zaehlerstaende)) {

@@ -118,11 +118,13 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
           maxId = $scope.zaehlers[i].id;
         };
       };
-      if (angular.isDefined($scope.zaehler.id)) {
-      } else {
+      if (angular.isUndefined($scope.zaehler.id)) {
         $scope.zaehler.id = maxId + 1;
         $scope.zaehlers.push($scope.zaehler);
       }
+      if (angular.isUndefined($scope.zaehler.aktuellerZaehlerstand)) {
+        $scope.zaehler.aktuellerZaehlerstand = 0;
+      };
       $scope.zaehler = null;
       $scope.EinstellungenZaehlerForm.$setPristine();
     };
@@ -183,7 +185,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
     $scope.immobilie = Zaehlerjournal.findImmobilieByAdresse($scope.adresse);
     $scope.saveZaehler = function() {
       //console.dir($scope.immobilie.zaehlers);
-      Zaehlerjournal.addZaehlerstand($scope.immobilie, $scope.immobilie.zaehlers);
+      Zaehlerjournal.addZaehlerstand($scope.immobilie.zaehlers);
       for (var i = 0; i < $scope.immobilie.zaehlers.length; i++) {
         $scope.immobilie.zaehlers[i].zaehlerstand = null;
       };
