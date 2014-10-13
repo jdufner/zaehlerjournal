@@ -6,8 +6,8 @@
 var zaehlerjournalServices = angular.module('zaehlerjournal.services', ['ngResource']);
 
 //
-zaehlerjournalServices.factory('Zaehlerjournal', ['$http', '$q', 
-  function($http, $q) {
+zaehlerjournalServices.factory('Zaehlerjournal', ['$http', 
+  function($http) {
     var immobilien = [];
     var metadaten = null;
     function getImmobilien() {

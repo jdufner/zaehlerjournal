@@ -3,12 +3,25 @@
 /* jasmine specs for services go here */
 
 describe('service', function() {
-  beforeEach(module('zaehlerjournal.services'));
-
-
-//  describe('version', function() {
-//    it('should return current version', inject(function(version) {
-//      expect(version).toEqual('0.1');
-//    }));
-//  });
+  
+  describe('Zaehlerjournal', function() {
+    var httpBackend, Zaehlerjournal;
+    beforeEach(function() {
+      module('zaehlerjournal.services');
+      inject(function($httpBackend, _Zaehlerjournal_){
+        httpBackend = $httpBackend;
+        Zaehlerjournal = _Zaehlerjournal_;
+      });
+    });
+    it('should have a getImmobilien function', function() {
+      expect(angular.isFunction(Zaehlerjournal.getImmobilien)).toBe(true);
+    });
+    it('should have a getMetadaten function', function() {
+      expect(angular.isFunction(Zaehlerjournal.getMetadaten)).toBe(true);
+    });
+    it('should have a setMetadaten function', function() {
+      expect(angular.isFunction(Zaehlerjournal.setMetadaten)).toBe(true);
+    });
+  });
+ 
 });
