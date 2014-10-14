@@ -17,9 +17,9 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$http',
       immobilien.push({'id': immobilien.length + 1, 'adresse': adresse, zaehlers: []});
     };
     function findImmobilieByAdresse(adresse) {
-      if (angular.isUndefined(immobilien) || immobilien === null) {
-        return null;
-      };
+//      if (angular.isUndefined(immobilien) || immobilien === null) {
+//        return null;
+//      };
       for (var i = 0; i < immobilien.length; i++) {
         if (angular.isDefined(immobilien[i].adresse) && immobilien[i].adresse === adresse) {
           return immobilien[i];
