@@ -4,14 +4,24 @@
 
 describe('filter', function() {
   beforeEach(module('zaehlerjournal.filters'));
-
-  describe('interpolate', function() {
-    beforeEach(module(function($provide) {
-      $provide.value('version', 'TEST_VER');
+  describe('encodeUri', function() {
+    var encodeUri;
+    beforeEach(inject(function(encodeUriFilter){
+      encodeUri = encodeUriFilter;
     }));
-
-    it('should replace VERSION', inject(function(interpolateFilter) {
-      expect(interpolateFilter('before %VERSION% after')).toEqual('before TEST_VER after');
+    it('should URI encode a string', function() {
+      expect(encodeUri("abc")).toBe("abc");
+      expect(encodeUri(" ")).toBe("%20");
+    });
+  });
+  describe('encodeUriComponent', function() {
+    var encodeUriComponent;
+    beforeEach(inject(function(encodeUriComponentFilter){
+      encodeUriComponent = encodeUriComponentFilter;
     }));
+    it('should URI encode a string', function() {
+      expect(encodeUriComponent("abc")).toBe("abc");
+      expect(encodeUriComponent(" ")).toBe("%20");
+    });
   });
 });
