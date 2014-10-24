@@ -4,6 +4,12 @@
   </div>
 </div>
 
+<!--div class="row">
+  <div class="col-md-12">
+    <h2>Zähler</h2>
+  </div>
+</div-->
+
 <div class="row" ng-repeat="z in zaehlers">
   <div class="col-md-12">
     <div class="input-group">
@@ -21,26 +27,45 @@
   </div>
 </div>
 
-<form name="EinstellungenZaehlerForm">
-  <fieldset>
-    <legend>Zählerformular</legend>
-    <p>
-      <label for="nr">Zählernummer</label>
-      <input id="nr" name="nr" type="text" ng-model="zaehler.nr">
-    </p>
-    <p>
-      <label for="art">Art</label>
-      <select id="art" name="art" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte"></select>
-    </p>
-    <p>
-      <label for="typ">Typ</label>
-      <select id="typ" name="typ" ng-model="zaehler.typ" ng-options="t.art for t in metadaten.typ.werte"></select>
-    </p>
-    <p>
-      <button ng-click="save()">Speichern</button>
-    </p>
-  </fieldset>
-</form>
+<div class="row">
+  <form class="form-horizontal" name="EinstellungenZaehlerForm" role="form">
+    <div class="form-group" ng-class="{'has-error': EinstellungenZaehlerForm.nr.$dirty && EinstellungenZaehlerForm.nr.$invalid, 'has-success': !EinstellungenZaehlerForm.nr.$invalid}">
+      <label class="col-md-2 control-label" for="nr">Zählernummer</label>
+      <div class="col-md-10">
+        <input class="form-control" id="nr" name="nr" type="text" ng-model="zaehler.nr" ng-required="true">
+        <span ng-show="EinstellungenZaehlerForm.nr.$dirty && EinstellungenZaehlerForm.nr.$invalid">
+          Validierung fehlgeschlagen.
+          <span ng-show="EinstellungenZaehlerForm.nr.$error.required">Bitte geben sie eine Zählernummer ein.</span>
+        </span>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': EinstellungenZaehlerForm.art.$dirty && EinstellungenZaehlerForm.art.$invalid, 'has-success': !EinstellungenZaehlerForm.art.$invalid}">
+      <label class="col-md-2 control-label" for="art">Art</label>
+      <div class="col-md-10">
+        <select class="form-control" id="art" name="art" ng-model="zaehler.art" ng-options="a.art for a in metadaten.art.werte" ng-required="true"></select>
+        <span ng-show="EinstellungenZaehlerForm.art.$dirty && EinstellungenZaehlerForm.art.$invalid">
+          Validierung fehlgeschlagen.
+          <span ng-show="EinstellungenZaehlerForm.art.$error.required">Bitte wählen Sie eine Zählerart aus.</span>
+        </span>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': EinstellungenZaehlerForm.typ.$dirty && EinstellungenZaehlerForm.typ.$invalid, 'has-success': !EinstellungenZaehlerForm.typ.$invalid}">
+      <label class="col-md-2 control-label" for="typ">Typ</label>
+      <div class="col-md-10">
+        <select class="form-control" id="typ" name="typ" ng-model="zaehler.typ" ng-options="t.art for t in metadaten.typ.werte" ng-required="true"></select>
+        <span ng-show="EinstellungenZaehlerForm.typ.$dirty && EinstellungenZaehlerForm.typ.$invalid">
+          Validierung fehlgeschlagen.
+          <span ng-show="EinstellungenZaehlerForm.typ.$error.required">Bitte wählen sie einen Zählertyp aus.</span>
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <button class="btn btn-default" ng-disabled="EinstellungenZaehlerForm.art.$invalid || EinstellungenZaehlerForm.zaehlernr.$invalid || EinstellungenZaehlerForm.typ.$invalid" ng-click="save()">Speichern</button>
+      </div>
+    </div>
+  </form>
+</div>
 
 <pre>immobilie = {{immobilie}}</pre>
 <pre>metadaten = {{metadaten}}</pre>
