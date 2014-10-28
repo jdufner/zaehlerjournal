@@ -20,13 +20,13 @@ describe('directives', function() {
       scope.form.zaehlerstand.$setViewValue('1,23');
       expect(scope.zaehlerstand).toBe(1.23);
       expect(scope.form.zaehlerstand.$valid).toBe(true);
-      expect(scope.form.zaehlerstand.$error.smartFloat).toBe(false);
+      expect(scope.form.zaehlerstand.$error.smartFloat).toBeUndefined();
     });
     it('parses decimal numbers with dot', function(){
       scope.form.zaehlerstand.$setViewValue('1.23');
       expect(scope.zaehlerstand).toBe(1.23);
       expect(scope.form.zaehlerstand.$valid).toBe(true);
-      expect(scope.form.zaehlerstand.$error.smartFloat).toBe(false);
+      expect(scope.form.zaehlerstand.$error.smartFloat).toBeUndefined();
     });
     it('parses decimal numbers with either dot or comma', function(){
       scope.form.zaehlerstand.$setViewValue('a');
@@ -51,15 +51,15 @@ describe('directives', function() {
       scope.form.zaehlerstand.$setViewValue('1,23');
       expect(scope.zaehlerstand).toBe(1.23);
       expect(scope.form.zaehlerstand.$valid).toBe(true);
-      expect(scope.form.zaehlerstand.$error.float).toBe(false);
-      expect(scope.form.zaehlerstand.$error.minValue).toBe(false);
+      expect(scope.form.zaehlerstand.$error.float).toBeUndefined();
+      expect(scope.form.zaehlerstand.$error.minValue).toBeUndefined();
     });
     it('parses decimal numbers with dot and compares to minValue', function(){
       scope.form.zaehlerstand.$setViewValue('1.23');
       expect(scope.zaehlerstand).toBe(1.23);
       expect(scope.form.zaehlerstand.$valid).toBe(true);
-      expect(scope.form.zaehlerstand.$error.float).toBe(false);
-      expect(scope.form.zaehlerstand.$error.minValue).toBe(false);
+      expect(scope.form.zaehlerstand.$error.float).toBeUndefined();
+      expect(scope.form.zaehlerstand.$error.minValue).toBeUndefined();
     });
     it('parses character', function(){
       scope.form.zaehlerstand.$setViewValue('a');
@@ -85,14 +85,14 @@ describe('directives', function() {
       scope.form.zaehlerstand.$setViewValue('1,23');
       expect(scope.zaehlerstand).toBe(1.23);
       expect(scope.form.zaehlerstand.$valid).toBe(false);
-      expect(scope.form.zaehlerstand.$error.float).toBe(false);
+      expect(scope.form.zaehlerstand.$error.float).toBeUndefined();
       expect(scope.form.zaehlerstand.$error.minValue).toBe(true);
     });
     it('parses decimal numbers with dot and compares to minValue', function(){
       scope.form.zaehlerstand.$setViewValue('1.23');
       expect(scope.zaehlerstand).toBe(1.23);
       expect(scope.form.zaehlerstand.$valid).toBe(false);
-      expect(scope.form.zaehlerstand.$error.float).toBe(false);
+      expect(scope.form.zaehlerstand.$error.float).toBeUndefined();
       expect(scope.form.zaehlerstand.$error.minValue).toBe(true);
     });
     it('parses character', function(){

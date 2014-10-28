@@ -4,17 +4,21 @@
 var zaehlerjouralDirectives = angular.module('zaehlerjournal.directives', []);
 
 var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d*)?$/;
+/*
+ * Konvertiert Eingaben in Dezimalzahlen, egal ob Dezimaltrenner Punkt oder 
+ * Komma ist.
+ */
 zaehlerjouralDirectives.directive('smartFloat', function() {
   return {
     require: 'ngModel',
-    link: function(scope, elm, attrs, ctrl) {
+    link: function(scope, element, attributes, controller) {
       //console.log('smartFloat.link');
-      ctrl.$parsers.unshift(function(viewValue) {
+      controller.$parsers.unshift(function(viewValue) {
         if (FLOAT_REGEXP.test(viewValue)) {
-          ctrl.$setValidity('smartFloat', true);
+          controller.$setValidity('smartFloat', true);
           return parseFloat(viewValue.replace(',', '.'));
         } else {
-          ctrl.$setValidity('smartFloat', false);
+          controller.$setValidity('smartFloat', false);
           return undefined;
         };
       });
