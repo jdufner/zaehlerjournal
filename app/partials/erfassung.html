@@ -46,7 +46,7 @@
           <th>Stand</th>
         </tr>
         <tr ng-repeat="zaehlerstand in z.zaehlerstaende">
-          <td>{{zaehlerstand.datum}}</td>
+          <td>{{zaehlerstand.datum | date:'medium' }}</td>
           <td>{{zaehlerstand.stand}} {{z.art.einheit}}</td>
         </tr>
       </table>

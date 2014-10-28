@@ -40,7 +40,7 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$http',
         var d = new Date();
         zaehlers[i].zaehlerstaende.push({
           'id': zaehlers[i].zaehlerstaende.length,
-          'datum': d.format('Y-m-d\\TH:i:s'),
+          'datum': d.getTime(),
           'stand': zaehlers[i].zaehlerstand
         });
         zaehlers[i].aktuellerZaehlerstand = zaehlers[i].zaehlerstand;

@@ -135,8 +135,9 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       return false;
     };
   }])
-  .controller('UebersichtCtrl', ['$scope', 'Zaehlerjournal',
-    function($scope, Zaehlerjournal) {
+  .controller('UebersichtCtrl', ['$scope', '$locale', 'Zaehlerjournal',
+    function($scope, $locale, Zaehlerjournal) {
+      console.log($locale.id);
       $scope.immobilien = Zaehlerjournal.getImmobilien();
   }])
 ;
