@@ -50,12 +50,10 @@ describe('service', function() {
       expect(immobilie.adresse).toBe(adresse);
     });
     it('should add a zaehlerstand', function() {
-      var date = new Date();
-      var dateString = date.format('Y-m-d\\TH:i:s');
       var zaehlers = [{zaehlerstand: 1, zaehlerstaende: []}];
       Zaehlerjournal.addZaehlerstand(zaehlers);
       expect(zaehlers[0].zaehlerstaende[0].id).toBe(0);
-      expect(zaehlers[0].zaehlerstaende[0].datum).toBe(dateString);
+      expect(zaehlers[0].zaehlerstaende[0].datum).toMatch(/\d+/);
       expect(zaehlers[0].zaehlerstaende[0].stand).toBe(1);
     });
     it('should load the metadata from file', function() {
