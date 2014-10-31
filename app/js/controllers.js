@@ -2,18 +2,24 @@
 
 /* Controllers */
 angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
-  .controller('EinstellungenCtrl', ['$scope', 'Zaehlerjournal', function($scope, Zaehlerjournal) {
+  .controller('EinstellungenCtrl', ['$scope', 'Zaehlerjournal', 'persistanceService',
+    function($scope, Zaehlerjournal, persistanceService) {
     //console.log('init EinstellungenCtrl');
     $scope.immobilien = Zaehlerjournal.getImmobilien();
+    persistanceService.getDataNew(function(immobilien) {
+      $scope.immobilien = immobilien;
+      Zaehlerjournal.setImmobilien($scope.immobilien);
+    });
     $scope.createAdresse = function() {
       //console.log('EinstellungenCtrl.createAdresse');
       Zaehlerjournal.addImmobilie($scope.adresse);
+      persistanceService.saveData($scope.immobilien);
       $scope.adresse = null;
       $scope.EinstellungenForm.$setPristine();
     };
   }])
-  .controller('EinstellungenZaehlerCtrl', ['$scope', '$routeParams', 'Zaehlerjournal',
-    function($scope, $routeParams, Zaehlerjournal) {
+  .controller('EinstellungenZaehlerCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', 'persistanceService',
+    function($scope, $routeParams, Zaehlerjournal, persistanceService) {
     //console.log('init EinstellungenZaehlerCtrl');
     $scope.adresse = $routeParams.adresse;
     $scope.metadaten = Zaehlerjournal.getMetadaten();
@@ -50,10 +56,14 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       };
       $scope.zaehler = null;
       $scope.EinstellungenZaehlerForm.$setPristine();
+      var immobilien = Zaehlerjournal.getImmobilien();
+      persistanceService.saveData(immobilien);
     };
     $scope.edit = function(zaehler) {
       //console.dir(zaehler);
       $scope.zaehler = zaehler;
+      var immobilien = Zaehlerjournal.getImmobilien();
+      persistanceService.saveData(immobilien);
     };
     $scope.remove = function(zaehler) {
       //console.dir(zaehler);
@@ -68,6 +78,8 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       for (var i = 0; i < anzahl - 1; i++) {
         $scope.zaehlers.push(tmp.pop());
       };
+      var immobilien = Zaehlerjournal.getImmobilien();
+      persistanceService.saveData(immobilien);
     };
     $scope.up = function(zaehler) {
       console.dir(zaehler);
@@ -83,6 +95,8 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       var tmp = $scope.zaehlers[index - 1];
       $scope.zaehlers[index - 1] = $scope.zaehlers[index];
       $scope.zaehlers[index] = tmp;
+      var immobilien = Zaehlerjournal.getImmobilien();
+      persistanceService.saveData(immobilien);
     };
     $scope.down = function(zaehler) {
       console.dir(zaehler);
@@ -98,6 +112,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       var tmp = $scope.zaehlers[index];
       $scope.zaehlers[index] = $scope.zaehlers[index + 1];
       $scope.zaehlers[index + 1] = tmp;
+      persistanceService.saveData($scope.immobilien);
     };
   }])
   .controller('ErfassungCtrl', ['$scope', '$routeParams', 'Zaehlerjournal', 'persistanceService',
@@ -113,6 +128,7 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
         $scope.immobilie.zaehlers[i].zaehlerstand = null;
       };
       $scope.form.$setPristine();
+      persistanceService.saveData($scope.immobilien);
     };
     $scope.isAtLeastOneZaehlerInvalid = function() {
       if ($scope.immobilie === null || $scope.immobilie.zaehlers === null) {
@@ -135,9 +151,11 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       return false;
     };
   }])
-  .controller('UebersichtCtrl', ['$scope', '$locale', 'Zaehlerjournal',
-    function($scope, $locale, Zaehlerjournal) {
-      console.log($locale.id);
-      $scope.immobilien = Zaehlerjournal.getImmobilien();
+  .controller('UebersichtCtrl', ['$scope', 'Zaehlerjournal', 'persistanceService',
+    function($scope, Zaehlerjournal, persistanceService) {
+    persistanceService.getDataNew(function(immobilien) {
+      $scope.immobilien = immobilien;
+      Zaehlerjournal.setImmobilien($scope.immobilien);
+    });
   }])
 ;

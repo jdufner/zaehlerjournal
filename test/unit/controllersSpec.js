@@ -20,13 +20,20 @@ describe('controllers', function(){
   }));
 
   describe('UebersichtCtrl', function() {
-    var scope, ctrl;
+    var scope, ctrl, Zaehlerjournal, persistanceService;
+    beforeEach(module('zaehlerjournal.services', function() {
+      persistanceService = {
+        getDataNew: function() {}
+      };
+      spyOn(persistanceService, 'getDataNew');
+    }));
     beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('UebersichtCtrl', {$scope: scope});
+      ctrl = $controller('UebersichtCtrl', {$scope: scope, Zaehlerjournal: Zaehlerjournal, persistanceService: persistanceService});
     }));
-    it('should create "immobilien" model', function() {
-      expect(scope.immobilien).toEqualData([]);
+    it('should call persistanceService', function() {
+      expect(ctrl).toBeDefined();
+      expect(persistanceService.getDataNew).toHaveBeenCalled();
     });
   });
 
@@ -253,20 +260,32 @@ describe('controllers', function(){
   }));
 
   describe('UebersichtCtrl', function() {
-    var scope, ctrl, Zaehlerjournal;
-    beforeEach(module('zaehlerjournal', function() {
+    var scope, ctrl, Zaehlerjournal, persistanceService;
+    beforeEach(module('zaehlerjournal.services', function() {
       Zaehlerjournal = {
-        getImmobilien: function() {}
+        getImmobilien: function() {},
+        setImmobilien: function() {}
       };
       spyOn(Zaehlerjournal, 'getImmobilien').andReturn([{adresse: 'Strasse Hausnummer Ort'}]);
+      spyOn(Zaehlerjournal, 'setImmobilien');
+      persistanceService = {
+        getDataNew: function() {}
+      };
+      spyOn(persistanceService, 'getDataNew').andCallFake(
+        function(f) {
+          //console.log('fake call getDataNew ' + f);
+          f([{adresse: 'Strasse Hausnummer Ort'}]);
+        }
+      );
     }));
     beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('UebersichtCtrl', {$scope: scope, Zaehlerjournal: Zaehlerjournal});
+      ctrl = $controller('UebersichtCtrl', {$scope: scope, Zaehlerjournal: Zaehlerjournal, persistanceService: persistanceService});
     }));
     it('should display all immobilien', function() {
       expect(ctrl).toBeDefined();
-      expect(Zaehlerjournal.getImmobilien).toHaveBeenCalled();
+      //expect(Zaehlerjournal.getImmobilien).toHaveBeenCalled();
+      expect(persistanceService.getDataNew).toHaveBeenCalled();
       expect(scope.immobilien.length).toBe(1);
       expect(scope.immobilien[0].adresse).toBe('Strasse Hausnummer Ort');
     });
