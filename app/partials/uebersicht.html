@@ -9,11 +9,8 @@
     <strong><a href="#/erfassung/{{immobilie.adresse}}">{{immobilie.adresse}}</a></strong>
     <ul class="list-unstyled">
       <li ng-repeat="zaehler in immobilie.zaehlers">
-        {{zaehler.art.art}} {{zaehler.nr}} ({{zaehler.typ.art}}): <em>{{zaehler.aktuellerZaehlerstand}} {{zaehler.art.einheit}}</em>
+        {{zaehler.art.art}} {{zaehler.nr}} ({{zaehler.typ.art}}), {{zaehler.aktuellerZaehlerstandDatum | date:'medium' }} Uhr: <em>{{zaehler.aktuellerZaehlerstand}} {{zaehler.art.einheit}}</em>
       </li>
     </ul>
   </div>
 </div>
-
-<hr>
-<pre>immobilien = {{immobilien}}</pre>

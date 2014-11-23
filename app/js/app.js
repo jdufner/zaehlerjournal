@@ -1,8 +1,7 @@
 'use strict';
 
-
 // Declare app level module which depends on filters, and services
-angular.module('zaehlerjournal', [
+var ZaehlerjournalApp = angular.module('zaehlerjournal', [
   'ngRoute',
   'zaehlerjournal.filters',
   'zaehlerjournal.services',
@@ -20,3 +19,10 @@ config(['$routeProvider', function($routeProvider) {
 run(['$rootScope', function($rootScope){
   console.log('initialize ...');
 }]);
+
+/*
+ * Registriert einen Listen auf das deviceready-Event, für die Integration in Cordova.
+ */
+document.addEventListener('deviceready', function onDeviceReady() {
+  angular.bootstrap(document, ['zaehlerjournal']);
+}, false);

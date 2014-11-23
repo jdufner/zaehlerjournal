@@ -15,6 +15,17 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$http',
     };
     function setImmobilien(pImmobilien) {
       immobilien = pImmobilien;
+//      for (var i = 0; i < immobilien.length; i++) {
+//        for (var j = 0; j < immobilien[i].zaehlers.length; j++) {
+//          var maxDatum = 0;
+//          for (var k = 0; k < immobilien[i].zaehlers[j].zaehlerstaende.length; k++) {
+//            if (maxDatum < immobilien[i].zaehlers[j].zaehlerstaende[k].datum) {
+//              maxDatum = immobilien[i].zaehlers[j].zaehlerstaende[k].datum;
+//            };
+//          };
+//          immobilien[i].zaehlers[j].aktuellerZaehlerstandDatum = maxDatum;
+//        };
+//      };
     };
     function addImmobilie(adresse) {
       immobilien.push({'id': immobilien.length + 1, 'adresse': adresse, zaehlers: []});
@@ -44,6 +55,7 @@ zaehlerjournalServices.factory('Zaehlerjournal', ['$http',
           'stand': zaehlers[i].zaehlerstand
         });
         zaehlers[i].aktuellerZaehlerstand = zaehlers[i].zaehlerstand;
+        zaehlers[i].aktuellerZaehlerstandDatum = d.getTime();
       };
     };
     /**
