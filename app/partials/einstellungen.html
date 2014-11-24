@@ -11,27 +11,39 @@
 </div-->
 
 <form class="form-horizontal" name="EinstellungenForm" role="form" ng-controller="EinstellungenCtrl">
-  <div class="row">
-    <div class="form-group" ng-class="{'has-error': EinstellungenForm.adresse.$dirty && EinstellungenForm.adresse.$invalid, 'has-success': EinstellungenForm.adresse.$dirty && !EinstellungenForm.adresse.$invalid}">
+  <div class="row form-group" ng-class="{'has-error': EinstellungenForm.adresse.$dirty && EinstellungenForm.adresse.$invalid, 'has-success': EinstellungenForm.adresse.$dirty && !EinstellungenForm.adresse.$invalid}">
       <label class="col-md-2 control-label" for="adresse">Adresse</label>
       <div class="col-md-10">
         <input class="form-control" id="adresse" name="adresse" type="text" placeholder="Straße Hausnr., Ort" ng-model="adresse" ng-required="true"/>
         <span ng-show="EinstellungenForm.adresse.$dirty && EinstellungenForm.adresse.$invalid">Geben Sie bitte die Adresse des Hauses, der Wohnung oder Wohneinheit ein.</span>
       </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-2 col-md-10">
+      <button type="submit" class="btn btn-default" ng-click="createAdresse()" ng-disabled="EinstellungenForm.adresse.$invalid">Speichern</button>
     </div>
   </div>
   <div class="row">
-    <div class="form-group">
-      <div class="col-md-offset-2 col-md-10">
-        <button type="submit" class="btn btn-default" ng-click="createAdresse()" ng-disabled="EinstellungenForm.adresse.$invalid">Speichern</button>
-      </div>
+    <div class="col-md-12">
+      &nbsp;
     </div>
   </div>
+
   <div class="row">
-   <div class="form-group">
-     <div class="col-md-12" ng-repeat="immobilie in immobilien">
-        <a class="btn btn-default btn-md btn-block" ng-href="#/zaehler/{{immobilie.adresse|encodeUriComponent}}">{{immobilie.adresse}}</a>
-      </div>
+    <div class="col-md-12" ng-repeat="immobilie in immobilien">
+      <div class="input-group">
+        <button type="button" class="btn btn-default btn-md btn-block" ng-click="edit(immobilie);">{{immobilie.adresse}}</button>
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+          <ul class="dropdown-menu dropdown-menu-right" role="menu">
+            <li><a data="{{immobilie}}" ng-click="edit(immobilie);"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
+            <li><a data="{{immobilie}}" ng-click="remove(immobilie);"><span class="glyphicon glyphicon-remove"></span> Remove</a></li>
+            <li><a data="{{immobilie}}" ng-click="up(immobilie);"><span class="glyphicon glyphicon-chevron-up"></span> Up</a></li>
+            <li><a data="{{immobilie}}" ng-click="down(immobilie);"><span class="glyphicon glyphicon-chevron-down"></span> Down</a></li>
+          </ul>
+        </div>
+      </div><br>
     </div>
   </div>
+
 </form>

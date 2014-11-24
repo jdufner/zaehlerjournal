@@ -232,6 +232,32 @@ zaehlerjournalServices.factory('persistanceService', ['$q',
       );
     };
 
+    /**
+     *
+     */
+    function deleteData(immobilie) {
+      var deferred = $q.defer();
+      init().then(
+        // successCallback
+        function(event) {
+          var handleResult = function(event) {
+            console.log('Object removed.');
+          };
+          var transaction = db.transaction(['zaehlerjournal'], 'readwrite');
+          var objectStore = transaction.objectStore('zaehlerjournal');
+          console.log('remove ' + immobilie.id);
+          var request = objectStore.delete(immobilie.id);
+          request.onsuccess = handleResult;
+        },
+        // errorCallback
+        function(event) {
+          console.log('Fehler beim Löschen!');
+          console.dir(event);
+        }
+        // , notifyCallback
+      );
+    };
+
     // Liefert den Service als Objekt zurück.
     return {
       //init: init,
@@ -239,6 +265,7 @@ zaehlerjournalServices.factory('persistanceService', ['$q',
       getData: getData,
       getDataNew: getDataNew,
       getDataByAdresse: getDataByAdresse,
+      deleteData: deleteData,
       saveData: saveData
     };
   }

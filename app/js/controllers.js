@@ -2,8 +2,8 @@
 
 /* Controllers */
 angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
-.controller('EinstellungenCtrl', ['$scope', 'Zaehlerjournal', 'persistanceService',
-  function($scope, Zaehlerjournal, persistanceService) {
+.controller('EinstellungenCtrl', ['$scope', '$location', 'Zaehlerjournal', 'persistanceService',
+  function($scope, $location, Zaehlerjournal, persistanceService) {
     //console.log('init EinstellungenCtrl');
     $scope.immobilien = Zaehlerjournal.getImmobilien();
     persistanceService.getDataNew(function(immobilien) {
@@ -16,6 +16,26 @@ angular.module('zaehlerjournal.controllers', ['zaehlerjournal.services'])
       persistanceService.saveData($scope.immobilien);
       $scope.adresse = null;
       $scope.EinstellungenForm.$setPristine();
+    };
+    $scope.edit = function(immobilie) {
+      //console.log('EinstellungenCtrl.edit(' + immobilie.adresse + ')');
+      //console.log('/zaehler/' + immobilie.adresse);
+      $location.path('/zaehler/' + immobilie.adresse);
+    };
+    $scope.remove = function(immobilie) {
+      console.log('EinstellungenCtrl.remove(' + immobilie.adresse + ')');
+      var anzahl = $scope.immobilien.length;
+      var tmp = new Array();
+      for (var i = 0; i < anzahl; i++) {
+        var immo = $scope.immobilien.pop();
+        if (immobilie !== immo) {
+          tmp.push(immo);
+        };
+      };
+      for (var i = 0; i < anzahl - 1; i++) {
+        $scope.immobilien.push(tmp.pop());
+      };
+      persistanceService.deleteData(immobilie);
     };
   }
 ])
