@@ -6,19 +6,20 @@ var ZaehlerjournalApp = angular.module('zaehlerjournal', [
   'zaehlerjournal.filters',
   'zaehlerjournal.services',
   'zaehlerjournal.directives',
-  'zaehlerjournal.controllers'
-]).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/einstellungen', {templateUrl: 'partials/einstellungen.html', controller: 'EinstellungenCtrl'});
-  $routeProvider.when('/einstellungen/:adresse', {templateUrl: 'partials/einstellungenAdresse.html', controller: 'EinstellungenAdresseCtrl'});
-  $routeProvider.when('/zaehler/:adresse', {templateUrl: 'partials/einstellungenZaehler.html', controller: 'EinstellungenZaehlerCtrl'});
-  $routeProvider.when('/erfassung/:adresse', {templateUrl: 'partials/erfassung.html', controller: 'ErfassungCtrl'});
-  $routeProvider.when('/uebersicht', {templateUrl: 'partials/uebersicht.html', controller: 'UebersichtCtrl'});
+  // Fachlichen Module
+  'zaehlerjournal.uebersicht',
+  'zaehlerjournal.einstellungen',
+  'zaehlerjournal.einstellungenZaehler',
+  'zaehlerjournal.erfassung'
+])
+.config(['$routeProvider', function($routeProvider) {
+  //$routeProvider.when('/einstellungen/:adresse', {templateUrl: 'partials/einstellungenAdresse.html', controller: 'EinstellungenAdresseCtrl'});
   $routeProvider.otherwise({redirectTo: '/uebersicht'});
-}]).
-run(['$rootScope', function($rootScope){
+}])
+.run(['$rootScope', function($rootScope){
   console.log('initialize ...');
-}]);
+}])
+;
 
 /*
  * Registriert einen Listen auf das deviceready-Event, für die Integration in Cordova.
