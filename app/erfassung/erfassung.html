@@ -6,26 +6,24 @@
 
 <form class="form-horizontal" name="form" role="form" ng-controller="ErfassungCtrl">
   <div class="row">
+    <div class="col-md-12">
     <ng-form name="formgroup"  ng-repeat="z in immobilie.zaehlers">
-      <div class="form-group" ng-class="{'has-error': formgroup.zaehlerstand.$dirty && formgroup.zaehlerstand.$invalid, 'has-success': formgroup.zaehlerstand.$dirty && !formgroup.zaehlerstand.$invalid}">
-        <label class="col-md-4 control-label" for="{{z.id}}">{{z.art.art}} {{z.nr}} ({{z.typ.art}})<br>Letzter Stand vom {{z.aktuellerZaehlerstandDatum | date:'medium' }} Uhr: {{z.aktuellerZaehlerstand}} {{z.art.einheit}}</label>
-        <div class="col-md-8">
-          <input id="{{z.id}}" name="zaehlerstand" type="text" class="form-control" placeholder="{{z.art.einheit}}" ng-model="z.zaehlerstand" ng-required min-value="{{z.aktuellerZaehlerstand}}"/>
-          <span ng-show="formgroup.zaehlerstand.$dirty && formgroup.zaehlerstand.$invalid">
-            Validierung fehlgeschlagen.
-            <span ng-show="formgroup.zaehlerstand.$error.required">Bitte einen Zählerstand eingeben.</span>
-            <span ng-show="formgroup.zaehlerstand.$error.float">Bitte eine Dezimalzahl eingeben.</span>
-            <span ng-show="formgroup.zaehlerstand.$error.minValue">Bitte geben sie mindestens {{z.aktuellerZaehlerstand}} ein.</span>
-          </span>
-        </div>
-      </div>
+      <span class="form-group" ng-class="{'has-error': formgroup.zaehlerstand.$dirty && formgroup.zaehlerstand.$invalid, 'has-success': formgroup.zaehlerstand.$dirty && !formgroup.zaehlerstand.$invalid}">
+        <label class="control-label" for="{{z.id}}">{{z.art.art}} {{z.nr}} ({{z.typ.art}}), Letzter Stand vom {{z.aktuellerZaehlerstandDatum | date:'medium' }} Uhr: {{z.aktuellerZaehlerstand}} {{z.art.einheit}}</label>
+        <input id="{{z.id}}" name="zaehlerstand" type="text" class="form-control" placeholder="{{z.art.einheit}}" ng-model="z.zaehlerstand" ng-required min-value="{{z.aktuellerZaehlerstand}}"/>
+        <span ng-show="formgroup.zaehlerstand.$dirty && formgroup.zaehlerstand.$invalid">
+          Validierung fehlgeschlagen.
+          <span ng-show="formgroup.zaehlerstand.$error.required">Bitte einen Zählerstand eingeben.</span>
+          <span ng-show="formgroup.zaehlerstand.$error.float">Bitte eine Dezimalzahl eingeben.</span>
+          <span ng-show="formgroup.zaehlerstand.$error.minValue">Bitte geben sie mindestens {{z.aktuellerZaehlerstand}} ein.</span>
+        </span>
+      </span>
     </ng-form>
+    </div>
   </div>
   <div class="row">
-    <div class="form-group">
-      <div class="col-md-offset-4 col-md-8">
-        <button type="submit" class="btn btn-default" ng-disabled="isAtLeastOneZaehlerInvalid()" ng-click="saveZaehler()">Speichern</button>
-      </div>
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-default" ng-disabled="isAtLeastOneZaehlerInvalid()" ng-click="saveZaehler()">Speichern</button>
     </div>
   </div>
 </form>
