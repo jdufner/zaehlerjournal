@@ -13,7 +13,6 @@ var ZaehlerjournalApp = angular.module('zaehlerjournal', [
   'zaehlerjournal.erfassung'
 ])
 .config(['$routeProvider', function($routeProvider) {
-  //$routeProvider.when('/einstellungen/:adresse', {templateUrl: 'partials/einstellungenAdresse.html', controller: 'EinstellungenAdresseCtrl'});
   $routeProvider.otherwise({redirectTo: '/uebersicht'});
 }])
 .run(['$rootScope', function($rootScope){
