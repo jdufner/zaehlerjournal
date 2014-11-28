@@ -30,7 +30,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h1>Zählerstände</h1>
+    <h1>Zählerstände <a href="mailto:{{configuration.email}}?subject={{adresse}}&body={{zaehlerstaendeCsv}}"><span class="glyphicon glyphicon-envelope"></span></a></h1>
   </div>
 </div>
 
@@ -42,12 +42,12 @@
         <tr>
           <th>Datum</th>
           <th>Stand</th>
-          <th>Aktion</th>
+          <th ng-if="configuration.zaehlerstandAktion">Aktion</th>
         </tr>
         <tr ng-repeat="zaehlerstand in z.zaehlerstaende">
           <td>{{zaehlerstand.datum | date:'medium' }}</td>
           <td>{{zaehlerstand.stand}} {{z.art.einheit}}</td>
-          <td>
+          <td ng-if="configuration.zaehlerstandAktion">
             <button type="button" class="btn btn-default btn-md" title="Löschen" data="{{zaehlerstand}}" ng-click="remove(z, zaehlerstand);">
               <span class="glyphicon glyphicon-remove" aria-hidden="false"></span>
             </button>

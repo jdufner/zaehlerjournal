@@ -4,14 +4,16 @@
   </div>
 </div>
 
-<!--div class="row">
+<div class="row">
   <div class="col-md-12">
     <h2>Adressen</h2>
   </div>
-</div-->
+</div>
 
 <form class="form-horizontal" name="EinstellungenForm" role="form" ng-controller="EinstellungenCtrl">
-  <div class="row form-group" ng-class="{'has-error': EinstellungenForm.adresse.$dirty && EinstellungenForm.adresse.$invalid, 'has-success': EinstellungenForm.adresse.$dirty && !EinstellungenForm.adresse.$invalid}">
+  <div class="row form-group" 
+       ng-class="{'has-error': EinstellungenForm.adresse.$dirty && EinstellungenForm.adresse.$invalid,
+                  'has-success': EinstellungenForm.adresse.$dirty && !EinstellungenForm.adresse.$invalid}">
       <label class="col-md-2 control-label" for="adresse">Adresse</label>
       <div class="col-md-10">
         <input class="form-control" id="adresse" name="adresse" type="text" placeholder="Straße Hausnr., Ort" ng-model="adresse" ng-required="true"/>
@@ -20,7 +22,7 @@
   </div>
   <div class="row">
     <div class="col-md-offset-2 col-md-10">
-      <button type="submit" class="btn btn-default" ng-click="createAdresse()" ng-disabled="EinstellungenForm.adresse.$invalid">Speichern</button>
+      <button type="submit" class="btn btn-default" ng-click="createAdresse()" ng-disabled="EinstellungenForm.adresse.$invalid">Adresse speichern</button>
     </div>
   </div>
   <div class="row">
@@ -43,6 +45,37 @@
           </ul>
         </div>
       </div><br>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Erfassung</h2>
+    </div>
+  </div>
+
+  <div class="row form-group"
+       ng-class="{'has-error': EinstellungenForm.email.$dirty && EinstellungenForm.email.$invalid,
+                  'has-success': EinstellungenForm.email.$dirty && !EinstellungenForm.email.$invalid}">
+    <label class="col-md-2 control-label" for="email">Email</label>
+    <div class="col-md-10">
+      <input class="form-control" id="email" name="email" type="text" placeholder="your_email@domain.com" ng-model="configuration.email" ng-required="true"/>
+      <span ng-show="EinstellungenForm.email.$dirty && EinstellungenForm.adresse.$invalid">Geben Sie bitte ein korrekt Email-Adresse ein.</span>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <label class="col-md-2 control-label" for="zaehlerstandAktion">Zählerstände-Aktion anzeigen</label>
+    <div class="col-md-10">
+      <input id="zaehlerstandAktion" name="zaehlerstandAktion" type="checkbox" ng-model="configuration.zaehlerstandAktion" ng-required="true" ng-true-value="true" ng-false-value="false"/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-offset-2 col-md-10">
+      <button class="btn btn-default" ng-click="saveConfig()">Einstellungen speichern</button>
     </div>
   </div>
 

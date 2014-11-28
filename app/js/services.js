@@ -101,7 +101,7 @@ zaehlerjournalServices.factory('persistanceService', ['$q',
         deferred.resolve(true);
         return deferred.promise;
       };
-      var openRequest = window.indexedDB.open("zaehlerjournalDb", 1);
+      var openRequest = window.indexedDB.open("zaehlerjournalDb", 2);
       openRequest.onerror = function(e) {
         console.log("Error opening Database");
         console.dir(e);
@@ -114,6 +114,9 @@ zaehlerjournalServices.factory('persistanceService', ['$q',
         if(!thisDb.objectStoreNames.contains("zaehlerjournal")) {
           objectStore = thisDb.createObjectStore("zaehlerjournal", {keyPath: "id", autoIncrement:false});
           objectStore.createIndex("adressen", "adresse", {unique: false});
+        };
+        if(!thisDb.objectStoreNames.contains("configuration")) {
+          objectStore = thisDb.createObjectStore("configuration", {keyPath: "id", autoIncrement:false});
         };
       };
       openRequest.onsuccess = function(e) {
@@ -187,7 +190,7 @@ zaehlerjournalServices.factory('persistanceService', ['$q',
         function() {
           var result = null;
           var handleResult = function(event) {
-            console.log('getDataByAdresse');
+            //console.log('getDataByAdresse');
             console.dir(event);
             result = event.target.result;
           };
@@ -258,6 +261,57 @@ zaehlerjournalServices.factory('persistanceService', ['$q',
       );
     };
 
+    /**
+     *
+     */
+    function getConfiguration(callbackFunction) {
+      var deferred = $q.defer();
+      init().then(
+        // successCallback
+        function() {
+          var result = [];
+          var handleResult = function(event) {
+            //console.dir(event);
+            var configuration = event.target.result;
+            //console.dir(configuration);
+            callbackFunction(configuration);
+          };
+          var transaction = db.transaction(['configuration'], 'readonly');
+          var objectStore = transaction.objectStore('configuration');
+          var request = objectStore.get(1);
+          request.onsuccess = handleResult;
+        } //, errorCallback, notifyCallback
+      );
+      return deferred.promise;
+    };
+
+    /**
+     *
+     */
+    function saveConfiguration(configuration) {
+      var deferred = $q.defer();
+      init().then(
+        // successCallback
+        function(event) {
+          //console.log('saveConfiguration');
+          //console.dir(db);
+          var handleResult = function(event) {
+            console.log('Object ' + event.target.result + ' saved.');
+          };
+          var transaction = db.transaction(['configuration'], 'readwrite');
+          var objectStore = transaction.objectStore('configuration');
+          var request = objectStore.put(configuration);
+          request.onsuccess = handleResult;
+        },
+        // errorCallback
+        function(event) {
+          console.log('Fehler beim Speichern!');
+          console.dir(event);
+        }
+        // , notifyCallback
+      );
+    };
+
     // Liefert den Service als Objekt zurück.
     return {
       //init: init,
@@ -266,7 +320,9 @@ zaehlerjournalServices.factory('persistanceService', ['$q',
       getDataNew: getDataNew,
       getDataByAdresse: getDataByAdresse,
       deleteData: deleteData,
-      saveData: saveData
+      saveData: saveData,
+      getConfiguration: getConfiguration,
+      saveConfiguration: saveConfiguration
     };
   }
 ]);

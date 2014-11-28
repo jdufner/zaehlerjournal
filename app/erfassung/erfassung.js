@@ -18,6 +18,24 @@ angular.module('zaehlerjournal.erfassung', ['ngRoute', 'zaehlerjournal.services'
     $scope.adresse = $routeParams.adresse;
     $scope.immobilien = Zaehlerjournal.getImmobilien();
     $scope.immobilie = Zaehlerjournal.findImmobilieByAdresse($scope.adresse);
+    persistanceService.getConfiguration(function(configuration) {
+      $scope.configuration = configuration;
+      $scope.$apply();
+    });
+    var csv = "";
+    if ($scope.immobilie !== null && angular.isDefined($scope.immobilie.zaehlers)) {
+      for (var i = 0; i < $scope.immobilie.zaehlers.length; i++) {
+        if (angular.isDefined($scope.immobilie.zaehlers[i].zaehlerstaende)) {
+          for (var j = 0; j < $scope.immobilie.zaehlers[i].zaehlerstaende.length; j++) {
+            csv = csv + "'" +
+                  $scope.immobilie.zaehlers[i].nr + "', '" +
+                  $scope.immobilie.zaehlers[i].zaehlerstaende[j].datum + "', '" +
+                  $scope.immobilie.zaehlers[i].zaehlerstaende[j].stand + "'%0A";
+          }
+        }
+      }
+    }
+    $scope.zaehlerstaendeCsv = csv;
     $scope.saveZaehler = function() {
       //console.dir($scope.immobilie.zaehlers);
       Zaehlerjournal.addZaehlerstand($scope.immobilie.zaehlers);

@@ -16,24 +16,27 @@ angular.module('zaehlerjournal.einstellungen', ['ngRoute', 'zaehlerjournal.servi
 .controller('EinstellungenCtrl', ['$scope', '$location', 'Zaehlerjournal', 'persistanceService',
   function($scope, $location, Zaehlerjournal, persistanceService) {
     //console.log('init EinstellungenCtrl');
+    persistanceService.getConfiguration(function(configuration) {
+      $scope.configuration = configuration;
+    });
     $scope.immobilien = Zaehlerjournal.getImmobilien();
     persistanceService.getDataNew(function(immobilien) {
       $scope.immobilien = immobilien;
       Zaehlerjournal.setImmobilien($scope.immobilien);
     });
     $scope.createAdresse = function() {
-      console.log('EinstellungenCtrl.createAdresse');
+      //console.log('EinstellungenCtrl.createAdresse');
       Zaehlerjournal.addImmobilie($scope.adresse);
       persistanceService.saveData($scope.immobilien);
       $scope.adresse = null;
       $scope.EinstellungenForm.$setPristine();
     };
     $scope.edit = function(immobilie) {
-      console.log('EinstellungenCtrl.edit(' + immobilie.adresse + ')');
+      //console.log('EinstellungenCtrl.edit(' + immobilie.adresse + ')');
       $location.path('/zaehler/' + immobilie.adresse);
     };
     $scope.remove = function(immobilie) {
-      console.log('EinstellungenCtrl.remove(' + immobilie.adresse + ')');
+      //console.log('EinstellungenCtrl.remove(' + immobilie.adresse + ')');
       var anzahl = $scope.immobilien.length;
       var tmp = new Array();
       for (var i = 0; i < anzahl; i++) {
@@ -47,8 +50,12 @@ angular.module('zaehlerjournal.einstellungen', ['ngRoute', 'zaehlerjournal.servi
       };
       persistanceService.deleteData(immobilie);
     };
+    $scope.saveConfig = function() {
+      console.log('EinstellungenCtrl.saveConfig()');
+      $scope.configuration.id = 1;
+      //console.dir($scope.configuration);
+      persistanceService.saveConfiguration($scope.configuration);
+    };
   }
 ])
 ;
-
-
