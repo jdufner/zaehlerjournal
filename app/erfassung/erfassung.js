@@ -61,9 +61,18 @@ angular.module('zaehlerjournal.erfassung', ['ngRoute', 'zaehlerjournal.services'
         };
       };
       anzahl = tmpArray.length;
+      var aktuellerZaehlerstand = 0;
+      var aktuellerZaehlerstandDatum = 0;
       for (var i = 0; i < anzahl; i++) {
-        zaehler.zaehlerstaende.push(tmpArray.pop());
+        var zaehlerstand = tmpArray.pop();
+        zaehler.zaehlerstaende.push(zaehlerstand);
+        if (aktuellerZaehlerstand < zaehlerstand.stand) {
+          aktuellerZaehlerstand = zaehlerstand.stand;
+          aktuellerZaehlerstandDatum = zaehlerstand.datum;
+        }
       };
+      zaehler.aktuellerZaehlerstand = aktuellerZaehlerstand;
+      zaehler.aktuellerZaehlerstandDatum = aktuellerZaehlerstandDatum;
       //console.dir(zaehler);
       persistanceService.saveData($scope.immobilien);
     };

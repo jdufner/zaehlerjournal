@@ -75,6 +75,32 @@ describe('controllers', function(){
       var invalid = scope.isAtLeastOneZaehlerInvalid();
       expect(invalid).toBe(false);
     });
+    describe('.remove()', function() {
+      var zaehlerstand1, zaehlerstand2, zaehler1, zaehler2;
+      beforeEach(function() {
+        zaehlerstand1 = {stand: 1, datum: 2};
+        zaehlerstand2 = {stand: 3, datum: 4};
+        zaehler1 = {aktuellerZahlerstand: 1, aktuellerZaehlerstandDatum: 2, zaehlerstaende: [zaehlerstand1]}
+        zaehler2 = {aktuellerZahlerstand: 3, aktuellerZaehlerstandDatum: 4, zaehlerstaende: [zaehlerstand1, zaehlerstand2]};
+        scope.immobilie = {zaehlers: [zaehler1, zaehler2]};
+      });
+      it('should remove a zaehlerstand1 from zaehler1', function() {
+        scope.remove(zaehler1, zaehlerstand1);
+        expect(zaehler1.zaehlerstaende.length).toBe(0);
+      });
+      it('should remove a zaehlerstand1 from zaehler2', function() {
+        scope.remove(zaehler2, zaehlerstand1);
+        expect(zaehler2.zaehlerstaende.length).toBe(1);
+        expect(zaehler2.aktuellerZaehlerstand).toBe(3);
+        expect(zaehler2.aktuellerZaehlerstandDatum).toBe(4);
+      });
+      it('should remove a zaehlerstand2 from zaehler2', function() {
+        scope.remove(zaehler2, zaehlerstand2);
+        expect(zaehler2.zaehlerstaende.length).toBe(1);
+        expect(zaehler2.aktuellerZaehlerstand).toBe(1);
+        expect(zaehler2.aktuellerZaehlerstandDatum).toBe(2);
+      });
+    });
   });
 
 });
