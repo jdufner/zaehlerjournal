@@ -42,10 +42,16 @@
         <tr>
           <th>Datum</th>
           <th>Stand</th>
+          <th>Aktion</th>
         </tr>
         <tr ng-repeat="zaehlerstand in z.zaehlerstaende">
           <td>{{zaehlerstand.datum | date:'medium' }}</td>
           <td>{{zaehlerstand.stand}} {{z.art.einheit}}</td>
+          <td>
+            <button type="button" class="btn btn-default btn-md" title="Löschen" data="{{zaehlerstand}}" ng-click="remove(z, zaehlerstand);">
+              <span class="glyphicon glyphicon-remove" aria-hidden="false"></span>
+            </button>
+          </td>
         </tr>
       </table>
     </div>

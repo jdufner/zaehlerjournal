@@ -48,6 +48,25 @@ angular.module('zaehlerjournal.erfassung', ['ngRoute', 'zaehlerjournal.services'
       };
       return false;
     };
+    $scope.remove = function(zaehler, zaehlerstand) {
+      //console.dir(zaehler);
+      //console.dir(zaehlerstand);
+      var anzahl = zaehler.zaehlerstaende.length;
+      var tmpArray = new Array();
+      for (var i = 0; i < anzahl; i++) {
+        if (zaehler.zaehlerstaende[anzahl - 1 - i] === zaehlerstand) {
+          zaehler.zaehlerstaende.pop();
+        } else {
+          tmpArray.push(zaehler.zaehlerstaende.pop());
+        };
+      };
+      anzahl = tmpArray.length;
+      for (var i = 0; i < anzahl; i++) {
+        zaehler.zaehlerstaende.push(tmpArray.pop());
+      };
+      //console.dir(zaehler);
+      persistanceService.saveData($scope.immobilien);
+    };
   }
 ])
 ;
